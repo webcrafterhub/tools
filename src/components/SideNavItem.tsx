@@ -1,11 +1,7 @@
-import React, { FC } from 'react';
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { cn } from '@/lib/utils';
-import { IconType } from 'react-icons';
+import React, { FC } from "react";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+import { IconType } from "react-icons";
 
 interface SideNavItemProps {
   title: string;
@@ -15,13 +11,10 @@ interface SideNavItemProps {
 
 const SideNavItem: FC<SideNavItemProps> = ({ title, className, icon }) => {
   return (
-    <AccordionItem
-      value={title}
-      className="p-0 border-0 dark:text-white text-inherit"
-    >
+    <AccordionItem value={title} className="p-0 text-black border-0 dark:text-white text-inherit">
       <AccordionTrigger
         className={cn(
-          'py-2.7  hover:no-underline flex items-center  text-sm ease-nav-brand my-0 mx-4  whitespace-nowrap rounded-2xl  px-4 transition-colors ',
+          "py-2.7  hover:no-underline flex items-center  text-sm ease-nav-brand my-0 mx-4  whitespace-nowrap rounded-2xl  px-4 transition-colors ",
           className,
         )}
       >
@@ -29,10 +22,10 @@ const SideNavItem: FC<SideNavItemProps> = ({ title, className, icon }) => {
           <div className="text-lg shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white dark:bg-black-300 dark:text-white bg-center stroke-0 text-center xl:p-1.5">
             {icon}
           </div>
-          <span className="text-inherit">{title}</span>
+          <span className="text-black dark:text-white">{title}</span>
         </div>
       </AccordionTrigger>
-      <AccordionContent className="text-slate-500 dark:text-white">
+      <AccordionContent className="text-slate-500 dark:text-inherit">
         Yes. It adheres to the WAI-ARIA design pattern.
       </AccordionContent>
     </AccordionItem>
