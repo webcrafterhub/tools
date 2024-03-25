@@ -1,6 +1,6 @@
-import DesignerContextProvider from "@/src/components/context/DesignerContext";
-import { ThemeProvider } from "@/src/components/providers/ThemeProvider";
-import { Toaster } from "@/src/components/ui/toaster";
+import DesignerContextProvider from "@/components/context/DesignerContext";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
