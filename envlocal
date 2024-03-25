@@ -1,0 +1,19 @@
+#clerk config
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cmVsYXRpdmUtd29ybS0xOC5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_9ztqpqZtwo5Rn7kM77k2x1g5rgZqpKP9wMRFD2nwgK
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+
+# Prisma config
+
+POSTGRES_URL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_PRISMA_URL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+POSTGRES_URL_NO_SSL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb"
+POSTGRES_URL_NON_POOLING="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_USER="default"
+POSTGRES_HOST="ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech"
+POSTGRES_PASSWORD="GWOxespFv6X7"
+POSTGRES_DATABASE="verceldb"
