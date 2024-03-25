@@ -1,17 +1,17 @@
-import { GetFormById, GetFormWithSubmissions } from "@/src/actions/form";
-import FormLinkShare from "@/src/components/FormLinkShare";
-import VisitBtn from "@/src/components/VisitBtn";
+import { GetFormById, GetFormWithSubmissions } from "@/actions/form";
+import FormLinkShare from "@/components/FormLinkShare";
+import VisitBtn from "@/components/VisitBtn";
 import React, { ReactNode } from "react";
 import { StatsCard } from "../../page";
 import { LuView } from "react-icons/lu";
 import { FaWpforms } from "react-icons/fa";
 import { HiCursorClick } from "react-icons/hi";
 import { TbArrowBounce } from "react-icons/tb";
-import { ElementsType, FormElementInstance } from "@/src/components/FormElements";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
+import { ElementsType, FormElementInstance } from "@/components/FormElements";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { format, formatDistance } from "date-fns";
-import { Badge } from "@/src/components/ui/badge";
-import { Checkbox } from "@/src/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
 async function FormDetailPage({
   params,

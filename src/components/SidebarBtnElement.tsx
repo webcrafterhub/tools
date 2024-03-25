@@ -2,7 +2,7 @@ import React from "react";
 import { FormElement } from "./FormElements";
 import { Button } from "./ui/button";
 import { useDraggable } from "@dnd-kit/core";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 function SidebarBtnElement({ formElement }: { formElement: FormElement }) {
   const { label, icon: Icon } = formElement.designerBtnElement;

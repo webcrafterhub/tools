@@ -9,7 +9,7 @@ import useDesigner from "../hooks/useDesigner";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import { Bs123 } from "react-icons/bs";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Switch } from "../ui/switch";

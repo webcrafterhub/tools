@@ -12,7 +12,7 @@ import { RxDropdownMenu } from "react-icons/rx";
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Switch } from "../ui/switch";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";

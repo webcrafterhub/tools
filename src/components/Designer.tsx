@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import DesignerSidebar from "./DesignerSidebar";
 import { DragEndEvent, useDndMonitor, useDraggable, useDroppable } from "@dnd-kit/core";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import useDesigner from "./hooks/useDesigner";
 import { ElementsType, FormElementInstance, FormElements } from "./FormElements";
-import { idGenerator } from "@/src/lib/idGenerator";
+import { idGenerator } from "@/lib/idGenerator";
 import { Button } from "./ui/button";
 import { BiSolidTrash } from "react-icons/bi";
 
