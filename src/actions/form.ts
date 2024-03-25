@@ -1,7 +1,7 @@
 "use server";
 
-import prisma from "@/src/lib/prisma";
-import { formSchema, formSchemaType } from "@/src/schemas/form";
+import prisma from "@/lib/prisma";
+import { formSchema, formSchemaType } from "@/schemas/form";
 import { currentUser } from "@clerk/nextjs";
 
 class UserNotFoundErr extends Error {}

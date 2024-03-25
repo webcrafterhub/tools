@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { HiCursorClick } from "react-icons/hi";
 import { toast } from "./ui/use-toast";
 import { ImSpinner2 } from "react-icons/im";
-import { SubmitForm } from "@/src/actions/form";
+import { SubmitForm } from "@/actions/form";
 
 function FormSubmitComponent({ formUrl, content }: { content: FormElementInstance[]; formUrl: string }) {
   const formValues = useRef<{ [key: string]: string }>({});

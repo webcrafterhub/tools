@@ -11,7 +11,7 @@ import useDesigner from "../hooks/useDesigner";
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Switch } from "../ui/switch";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import { BsTextareaResize } from "react-icons/bs";
 import { Textarea } from "../ui/textarea";
 import { Slider } from "../ui/slider";
