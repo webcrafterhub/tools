@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 20% 50% 100%;
+    --background: 20 50% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
@@ -55,5 +55,40 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/*==================== tailwind My components ====================*/
+
+@layer components {
+  .section__title {
+    @apply text-slate-500  dark:text-white text-2xl sm:text-4xl md:text-6xl font-bold text-center w-full pb-4;
+  }
+  .section__subtitle {
+    @apply text-slate-500  dark:text-white text-xl sm:text-2xl md:text-3xl font-medium;
+  }
+  .section__contentTitle {
+    @apply text-textColor dark:text-white text-lg sm:text-xl lg:text-2xl font-medium;
+  }
+  .section__contentSubTitle {
+    @apply text-textColor dark:text-white text-sm sm:text-lg lg:text-xl font-medium;
+  }
+  .section__content {
+    @apply text-textColor dark:text-white text-sm lg:text-base;
+  }
+  .about__content {
+    @apply text-textColor dark:text-white text-base md:text-xs lg:text-base;
+  }
+  .achievement__content {
+    @apply text-textColor dark:text-white text-sm;
+  }
+  .gradient__rose {
+    @apply bg-gradient-to-tl from-purple-700 to-pink-500;
+  }
+  .gradient__primary {
+    @apply bg-gradient-to-tl from-blue-600 to-cyan-400;
+  }
+  .gradient__background {
+    @apply bg-gradient-to-br from-[#00031c] to-[#062b4c];
   }
 }
