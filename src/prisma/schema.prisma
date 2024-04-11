@@ -37,4 +37,41 @@ model FormSubmissions {
   content String
 }
 
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  phoneNumber String
+  companyName String
+  picture String
+  role UserRole @default(USER)
+  password String 
+  emailVerified Boolean @default(false)
+  subscriptionType SubscriptionPlan @default(BASIC)
+  subscriptionEndDate DateTime
+  passwordChangedAt DateTime @default(now())
+  accountStatus AccountStatus @default(ACTIVE)
+  creationTimestamp DateTime @default(now())
+  lastLoginTimestamp DateTime @default(now())
+  provider String @default("oauth2")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum SubscriptionPlan {
+  BASIC
+  PREMIUM
+
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+
 
