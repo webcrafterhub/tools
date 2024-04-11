@@ -2,7 +2,12 @@
 
 import prisma from "@/lib/prisma";
 import { formSchema, formSchemaType } from "@/schemas/form";
-import { currentUser } from "@clerk/nextjs";
+// import { currentUser } from "@clerk/nextjs";
+
+//change to nextauth
+const currentUser = async () => {
+  return { id: "12345", email: "pranav" };
+};
 
 class UserNotFoundErr extends Error {}
 

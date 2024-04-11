@@ -1,6 +1,6 @@
 import Logo from "@/components/Logo";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { UserButton } from "@clerk/nextjs";
+// import { UserButton } from "@clerk/nextjs";
 import React, { ReactNode } from "react";
 import SidebarNav from "@/components/SidebarNav";
 
@@ -14,7 +14,7 @@ function Layout({ children }: { children: ReactNode }) {
           <Logo />
           <div className="flex items-center gap-4">
             <ThemeSwitcher />
-            <UserButton afterSignOutUrl="/sign-in" />
+            {/* <UserButton afterSignOutUrl="/sign-in" /> */}
           </div>
         </nav>
         <main className="flex flex-grow w-full">{children}</main>
