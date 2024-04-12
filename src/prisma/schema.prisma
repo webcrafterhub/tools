@@ -53,7 +53,7 @@ model User {
   accountStatus AccountStatus @default(ACTIVE)
   creationTimestamp DateTime @default(now())
   lastLoginTimestamp DateTime @default(now())
-  provider String @default("oauth2")
+  provider String @default("OAUTH2")
 }
 
 enum UserRole {
