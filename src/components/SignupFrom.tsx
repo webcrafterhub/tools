@@ -10,6 +10,7 @@ import ButtonDark from "./ButtonDark";
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 import { SOMETHING_WENT_WRONG } from "@/utils/contants";
+import { signUp } from "@/actions/auth";
 
 type FormValues = {
   name: string;
@@ -44,8 +45,16 @@ export default function SignupForm() {
   // const mutation = useRegisterUser();
   const router = useRouter();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (userData) => {
+    const { type, data } = await signUp(userData);
+    if (type === "error") {
+      return toast({
+        title: "Error",
+        description: String(data),
+        variant: "destructive",
+      });
+    }
+    console.log("moo", data);
   });
   // useEffect(() => {
   //   if (mutation.isSuccess) {
@@ -96,18 +105,17 @@ export default function SignupForm() {
         />
         {errors?.password && <p className="text-sm text-red-500 dark:text-red-900">{errors.password.message}</p>}
       </div>
-      <div className="min-h-6 pl-6.92 mb-0.5 block">
+      <div className="min-h-[6px] flex gap-2 items-center">
         <input
           {...register("termsAccepted")}
           id="terms"
           className={cn(
-            "w-4.92 h-4.92 ease-soft -ml-6.92 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100",
+            "w-5 h-5 ease-soft  rounded-md checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:text-xxs after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left  cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100",
             { " border-red-500 ": errors.termsAccepted },
           )}
           type="checkbox"
         />
-        <label className="mb-2 ml-1 text-sm font-normal cursor-pointer select-none text-slate-700" htmlFor="terms">
-          {" "}
+        <label className=" text-sm font-normal cursor-pointer select-none text-slate-700" htmlFor="terms">
           I agree the{" "}
           <Link href="#" passHref={true} onClick={() => {}} className="font-bold text-slate-700">
             Terms and Conditions
