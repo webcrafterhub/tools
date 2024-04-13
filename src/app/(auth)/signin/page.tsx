@@ -14,7 +14,6 @@ interface pageProps {}
 
 const SignInPage: FC<pageProps> = ({}) => {
   function SocialLoginHandler(provider: string) {
-    console.log("helloo", provider);
     signIn(provider, {
       callbackUrl: defaultLoginRedirect,
     });
