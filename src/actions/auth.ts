@@ -1,13 +1,21 @@
 "use server";
 
+import { signIn } from "@/auth";
 import prisma from "@/lib/prisma";
+import { defaultLoginRedirect } from "@/utils/routes";
 import { authFormSchema, authFormSchemaType } from "@/schemas/authForm";
+import {
+  EMAIL_ALREADY_EXISTS_ERROR,
+  INVALID_USERNAME_PASSWORD_ERROR,
+  SOMETHING_WENT_WRONG_ERROR,
+} from "@/utils/errors";
 import bcrypt from "bcryptjs";
+import { AuthError } from "next-auth";
 
 export async function signUp(data: authFormSchemaType) {
-  const validation = authFormSchema.safeParse(data);
-  if (!validation.success) {
-    throw new Error("invalid data for signup");
+  const validateFields = authFormSchema.safeParse(data);
+  if (!validateFields.success) {
+    return INVALID_USERNAME_PASSWORD_ERROR;
   }
   const userExist = await prisma.user.findUnique({
     where: {
@@ -16,7 +24,7 @@ export async function signUp(data: authFormSchemaType) {
   });
 
   if (userExist) {
-    return { type: "error", data: "Email already exists" };
+    return EMAIL_ALREADY_EXISTS_ERROR;
   }
   const user = await prisma.user.create({
     data: {
@@ -27,7 +35,31 @@ export async function signUp(data: authFormSchemaType) {
   });
 
   if (!user) {
-    throw new Error("Something went wrong");
+    return SOMETHING_WENT_WRONG_ERROR;
   }
   return { type: "sucess", data: user };
+}
+
+export async function logIn(data: authFormSchemaType) {
+  const validateFields = authFormSchema.safeParse(data);
+  if (!validateFields.success) {
+    return INVALID_USERNAME_PASSWORD_ERROR;
+  }
+  const { email, password } = validateFields.data;
+  try {
+    await signIn("credentials", { email, password, redirectTo: defaultLoginRedirect });
+    return { type: "sucess", data: "" };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return INVALID_USERNAME_PASSWORD_ERROR;
+        case "CallbackRouteError":
+          return INVALID_USERNAME_PASSWORD_ERROR;
+        default:
+          return INVALID_USERNAME_PASSWORD_ERROR;
+      }
+    }
+    throw error;
+  }
 }
