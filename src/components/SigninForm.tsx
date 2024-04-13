@@ -11,6 +11,7 @@ import { toast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SOMETHING_WENT_WRONG } from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
+import { logIn } from "@/actions/auth";
 
 type FormValues = {
   email: string;
@@ -33,7 +34,16 @@ export default function SigninForm() {
   // const mutation = useLoginUser();
   const router = useRouter();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(async (userData) => {
+    const { type, data } = await logIn(userData);
+    if (type === "error") {
+      return toast({
+        title: "Error",
+        description: String(data),
+        variant: "destructive",
+      });
+    }
+  });
   // useEffect(() => {
   //   if (mutation.isSuccess) {
   //     router.push('/dashboard');

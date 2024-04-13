@@ -1,13 +1,13 @@
 import { auth as middleware } from "@/auth";
-
-const publicRoutes = ["/"];
-const authRoutes = ["/signin", "/signup"];
-const defaultLoginRedirect = "/";
+import { apiAuthRoutes, authRoutes, defaultLoginRedirect, publicRoutes } from "./utils/routes";
 
 export default middleware((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
-  console.log("ppp", isLoggedIn, nextUrl.pathname);
+
+  //api authentication URL shouldnt be blocked
+  if (nextUrl.pathname.startsWith(apiAuthRoutes)) return;
+
   if (authRoutes.includes(nextUrl.pathname)) {
     if (isLoggedIn) {
       const absoluteURL = new URL(defaultLoginRedirect, nextUrl);
@@ -17,6 +17,7 @@ export default middleware((req) => {
   }
   if (!isLoggedIn && !publicRoutes.includes(nextUrl.pathname)) {
     const absoluteURL = new URL("/signin", nextUrl);
+    console.log("pra2", nextUrl.pathname);
     return Response.redirect(absoluteURL);
   }
 });

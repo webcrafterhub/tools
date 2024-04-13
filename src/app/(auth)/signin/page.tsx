@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import Image from "next/image";
 import backgroundImg from "../../../assets/img/socialBanner.jpg";
@@ -7,9 +8,17 @@ import linkedinIcon from "../../../assets/svg/linkedinIcon.svg";
 import SigninForm from "@/components/SigninForm";
 import Link from "next/link";
 import ButtonDark from "@/components/ButtonDark";
+import { signIn } from "next-auth/react";
+import { defaultLoginRedirect } from "@/utils/routes";
 interface pageProps {}
 
-const SignIn: FC<pageProps> = ({}) => {
+const SignInPage: FC<pageProps> = ({}) => {
+  function SocialLoginHandler(provider: string) {
+    console.log("helloo", provider);
+    signIn(provider, {
+      callbackUrl: defaultLoginRedirect,
+    });
+  }
   return (
     <section className="min-h-screen mt-0 transition-all duration-200 ease-soft-in-out">
       <div
@@ -41,28 +50,28 @@ const SignIn: FC<pageProps> = ({}) => {
               </div>
               <div className="flex flex-wrap px-3 -mx-3 sm:px-6 xl:px-12">
                 <div className="w-3/12 max-w-full px-1 ml-auto flex-0">
-                  <Link
+                  <div
+                    onClick={() => SocialLoginHandler("facebook")}
                     className="flex items-center justify-center w-full px-6 py-3 mb-4 text-xs font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro ease-soft-in tracking-tight-soft bg-150 bg-x-25 hover:bg-transparent hover:opacity-75"
-                    href="/api/auth/facebook"
                   >
                     <Image priority src={facebookIcon} alt="facebook signup" />
-                  </Link>
+                  </div>
                 </div>
                 <div className="w-3/12 max-w-full px-1 flex-0">
-                  <Link
+                  <div
+                    onClick={() => SocialLoginHandler("google")}
                     className="flex items-center justify-center w-full px-6 py-3 mb-4 text-xs font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro ease-soft-in tracking-tight-soft bg-150 bg-x-25 hover:bg-transparent hover:opacity-75"
-                    href="/api/auth/google"
                   >
                     <Image priority src={googleIcon} alt="google signup" />
-                  </Link>
+                  </div>
                 </div>
                 <div className="w-3/12 max-w-full px-1 mr-auto flex-0">
-                  <Link
+                  <div
                     className="flex items-center justify-center w-full px-6 py-3 mb-4 text-xs font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro ease-soft-in tracking-tight-soft bg-150 bg-x-25 hover:bg-transparent hover:opacity-75"
-                    href="/api/auth/linkedin"
+                    onClick={() => SocialLoginHandler("linkedin")}
                   >
                     <Image priority src={linkedinIcon} alt="google signup" />
-                  </Link>
+                  </div>
                 </div>
               </div>
               <div className="flex-auto p-6">
@@ -86,4 +95,4 @@ const SignIn: FC<pageProps> = ({}) => {
   );
 };
 
-export default SignIn;
+export default SignInPage;
