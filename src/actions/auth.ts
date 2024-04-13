@@ -6,11 +6,13 @@ import { defaultLoginRedirect } from "@/utils/routes";
 import { authFormSchema, authFormSchemaType } from "@/schemas/authForm";
 import {
   EMAIL_ALREADY_EXISTS_ERROR,
+  EMAIL_NOT_VERIFIED_ERROR,
   INVALID_USERNAME_PASSWORD_ERROR,
   SOMETHING_WENT_WRONG_ERROR,
 } from "@/utils/errors";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
+import { EMAIL_NOT_VERIFIED } from "@/utils/contants";
 
 export async function signUp(data: authFormSchemaType) {
   const validateFields = authFormSchema.safeParse(data);
@@ -56,8 +58,12 @@ export async function logIn(data: authFormSchemaType) {
           return INVALID_USERNAME_PASSWORD_ERROR;
         case "CallbackRouteError":
           return INVALID_USERNAME_PASSWORD_ERROR;
+        case "AccessDenied":
+          if (error.cause?.err?.message === EMAIL_NOT_VERIFIED) {
+            return EMAIL_NOT_VERIFIED_ERROR;
+          }
         default:
-          return INVALID_USERNAME_PASSWORD_ERROR;
+          return SOMETHING_WENT_WRONG_ERROR;
       }
     }
     throw error;

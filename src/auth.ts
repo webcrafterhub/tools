@@ -1,13 +1,15 @@
 import bcrypt from "bcryptjs";
-import NextAuth, { type DefaultSession } from "next-auth";
+import NextAuth, { AuthError, type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient, UserRole } from "@prisma/client";
 import { authFormSchema } from "./schemas/authForm";
-import { findUserByEmail, findUserById } from "./actions/user";
+import { findUserByEmail, findUserById, setEmailVerified } from "./actions/user";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import Linkedin from "next-auth/providers/linkedin";
+import { EMAIL_NOT_VERIFIED } from "./utils/contants";
 
 declare module "next-auth" {
   interface Session {
@@ -16,12 +18,27 @@ declare module "next-auth" {
       role: UserRole;
     } & DefaultSession["user"]; // To keep the default types
   }
+  interface User {
+    emailVerified: Date | null;
+  }
 }
 
 const prisma = new PrismaClient();
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  events: {
+    async linkAccount({ user }) {
+      await setEmailVerified(user.id!);
+    },
+  },
   callbacks: {
+    async signIn({ user, account, email }) {
+      //allow signin iff email verified
+      if (account?.provider === "credentials" && !user.emailVerified) {
+        throw new Error(EMAIL_NOT_VERIFIED);
+      }
+      return true;
+    },
     async jwt({ token, account }) {
       if (!token.sub) return token;
 

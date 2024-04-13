@@ -54,7 +54,6 @@ export default function SignupForm() {
         variant: "destructive",
       });
     }
-    console.log("moo", data);
   });
   // useEffect(() => {
   //   if (mutation.isSuccess) {

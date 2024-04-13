@@ -26,3 +26,16 @@ export async function findUserById(id: string) {
     return null;
   }
 }
+
+export async function setEmailVerified(id: string) {
+  try {
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: { emailVerified: new Date() },
+    });
+  } catch (error) {
+    return null;
+  }
+}

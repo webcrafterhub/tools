@@ -17,7 +17,6 @@ export default middleware((req) => {
   }
   if (!isLoggedIn && !publicRoutes.includes(nextUrl.pathname)) {
     const absoluteURL = new URL("/signin", nextUrl);
-    console.log("pra2", nextUrl.pathname);
     return Response.redirect(absoluteURL);
   }
 });
