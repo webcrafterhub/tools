@@ -14,7 +14,13 @@ import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import { EMAIL_NOT_VERIFIED } from "@/utils/contants";
 
-export async function signUp(data: authFormSchemaType) {
+type AuthReturnType = {
+  type: string;
+  data: any;
+  cause?: string;
+};
+
+export async function signUp(data: authFormSchemaType): Promise<AuthReturnType> {
   const validateFields = authFormSchema.safeParse(data);
   if (!validateFields.success) {
     return INVALID_USERNAME_PASSWORD_ERROR;
@@ -39,10 +45,10 @@ export async function signUp(data: authFormSchemaType) {
   if (!user) {
     return SOMETHING_WENT_WRONG_ERROR;
   }
-  return { type: "sucess", data: user };
+  return { type: "success", data: user };
 }
 
-export async function logIn(data: authFormSchemaType) {
+export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
   const validateFields = authFormSchema.safeParse(data);
   if (!validateFields.success) {
     return INVALID_USERNAME_PASSWORD_ERROR;
@@ -50,7 +56,7 @@ export async function logIn(data: authFormSchemaType) {
   const { email, password } = validateFields.data;
   try {
     await signIn("credentials", { email, password, redirectTo: defaultLoginRedirect });
-    return { type: "sucess", data: "" };
+    return { type: "success", data: "" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
