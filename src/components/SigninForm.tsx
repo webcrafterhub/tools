@@ -8,10 +8,11 @@ import Link from "next/link";
 import ButtonBlue from "./ButtonBlue";
 // import useLoginUser from '@/hooks/useLoginUser';
 import { toast } from "./ui/use-toast";
-import { useRouter } from "next/navigation";
-import { SOMETHING_WENT_WRONG } from "@/utils/contants";
+import { useRouter, useSearchParams } from "next/navigation";
+import { EMAIL_NOT_VERIFIED, Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
 import { logIn } from "@/actions/auth";
+import VerifyEmailModal from "./ui/VerifyEmailModal";
 
 type FormValues = {
   email: string;
@@ -26,6 +27,9 @@ const schema = z.object({
 const resolver: Resolver<FormValues> = zodResolver(schema);
 
 export default function SigninForm() {
+  const [openResetDialog, setOpenResetDialog] = useState(false);
+  const [openEmailVerification, setOpenEmailVerification] = useState(false);
+  const [userData, setUserData] = useState({ email: "" });
   const {
     register,
     handleSubmit,
@@ -33,10 +37,30 @@ export default function SigninForm() {
   } = useForm<FormValues>({ resolver });
   // const mutation = useLoginUser();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const verificationEmail = searchParams.get(Email_VERIFICATION);
+  console.log("pranuu", verificationEmail);
+
+  useEffect(() => {
+    if (verificationEmail) {
+      setOpenEmailVerification(true);
+      setUserData({ email: verificationEmail });
+    }
+  }, []);
 
   const onSubmit = handleSubmit(async (userData) => {
-    const { type, data } = await logIn(userData);
+    setUserData(userData);
+    const { type, data, cause } = await logIn(userData);
+
+    if (type === "success") {
+      router.push("/signin");
+      return;
+    }
     if (type === "error") {
+      if (cause === EMAIL_NOT_VERIFIED) {
+        setOpenEmailVerification(true);
+        return;
+      }
       return toast({
         title: "Error",
         description: String(data),
@@ -44,18 +68,7 @@ export default function SigninForm() {
       });
     }
   });
-  // useEffect(() => {
-  //   if (mutation.isSuccess) {
-  //     router.push('/dashboard');
-  //   }
-  //   if (mutation.isError) {
-  //     toast.error(
-  //       mutation.error.response?.data?.message || SOMETHING_WENT_WRONG,
-  //     );
-  //   }
-  // }, [mutation.isSuccess, mutation.isError]);
 
-  const [openResetDialog, setOpenResetDialog] = useState(false);
   return (
     <>
       <form onSubmit={onSubmit} className="text-left" noValidate>
@@ -101,7 +114,18 @@ export default function SigninForm() {
         </div>
       </form>
       {openResetDialog && (
-        <ForgotPassword open={openResetDialog} dialogHandler={() => setOpenResetDialog((prev) => !prev)} />
+        <ForgotPassword
+          open={openResetDialog}
+          dialogHandler={() => setOpenResetDialog((prev) => !prev)}
+          email={userData?.email}
+        />
+      )}
+      {openEmailVerification && (
+        <VerifyEmailModal
+          open={openEmailVerification}
+          dialogHandler={() => setOpenEmailVerification((prev) => !prev)}
+          email={userData?.email || ""}
+        />
       )}
     </>
   );

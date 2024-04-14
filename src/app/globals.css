@@ -91,4 +91,7 @@
   .gradient__background {
     @apply bg-gradient-to-br from-[#00031c] to-[#062b4c];
   }
+  .text__gradient_primary {
+    @apply gradient__primary bg-clip-text text-transparent;
+  }
 }

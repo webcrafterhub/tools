@@ -9,7 +9,7 @@ import ButtonDark from "./ButtonDark";
 // import useRegisterUser from '@/hooks/useRegisterUser';
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
-import { SOMETHING_WENT_WRONG } from "@/utils/contants";
+import { Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
 import { signUp } from "@/actions/auth";
 
 type FormValues = {
@@ -46,7 +46,13 @@ export default function SignupForm() {
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (userData) => {
+    console.log("pranu0");
     const { type, data } = await signUp(userData);
+    console.log("pranu", type);
+    if (type === "success") {
+      router.push(`/signin?${Email_VERIFICATION + "=" + data?.email}`);
+      return;
+    }
     if (type === "error") {
       return toast({
         title: "Error",

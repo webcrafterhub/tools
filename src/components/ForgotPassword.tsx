@@ -78,6 +78,7 @@ const ForgotPassword: FC<ForgotPasswordProps> = ({ open, dialogHandler, email })
               )}
               placeholder="Email"
               aria-label="Email"
+              defaultValue={email || ""}
             />
             {errors?.email && <p className="text-sm text-red-500 dark:text-red-900">{errors.email.message}</p>}
           </div>
