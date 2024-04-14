@@ -73,6 +73,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true,
     }),
+
     Credentials({
       authorize: async (credentials) => {
         let user = null;
