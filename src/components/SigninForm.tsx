@@ -13,6 +13,7 @@ import { EMAIL_NOT_VERIFIED, Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/
 import ForgotPassword from "./ForgotPassword";
 import { logIn } from "@/actions/auth";
 import VerifyEmailModal from "./ui/VerifyEmailModal";
+import { useServerAction } from "./hooks/useServerAction";
 
 type FormValues = {
   email: string;
@@ -39,7 +40,7 @@ export default function SigninForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const verificationEmail = searchParams.get(Email_VERIFICATION);
-  console.log("pranuu", verificationEmail);
+  const [runActionSignin, isLoading] = useServerAction(logIn);
 
   useEffect(() => {
     if (verificationEmail) {
@@ -50,20 +51,20 @@ export default function SigninForm() {
 
   const onSubmit = handleSubmit(async (userData) => {
     setUserData(userData);
-    const { type, data, cause } = await logIn(userData);
+    const result = await runActionSignin(userData);
 
-    if (type === "success") {
+    if (result?.type === "success") {
       router.push("/signin");
       return;
     }
-    if (type === "error") {
-      if (cause === EMAIL_NOT_VERIFIED) {
+    if (result?.type === "error") {
+      if (result.cause === EMAIL_NOT_VERIFIED) {
         setOpenEmailVerification(true);
         return;
       }
       return toast({
         title: "Error",
-        description: String(data),
+        description: String(result.data),
         variant: "destructive",
       });
     }
@@ -82,6 +83,8 @@ export default function SigninForm() {
             )}
             placeholder="Email"
             aria-label="Email"
+            autoComplete="username"
+            name="email"
           />
           {errors?.email && <p className="text-sm text-red-500 dark:text-red-900">{errors.email.message}</p>}
         </div>
@@ -89,12 +92,14 @@ export default function SigninForm() {
           <input
             {...register("password")}
             type="password"
+            name="password"
             className={cn(
               "text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow",
               { "border-red-500": errors?.password },
             )}
             placeholder="Password"
             aria-label="Password"
+            autoComplete="current-password"
           />
           {errors?.password && <p className="text-sm text-red-500 dark:text-red-900">{errors.password.message}</p>}
         </div>
@@ -110,7 +115,7 @@ export default function SigninForm() {
           </button>
         </div>
         <div className="text-center">
-          <ButtonBlue type="submit" title="sign in" loading={false} />
+          <ButtonBlue type="submit" title="sign in" loading={isLoading} />
         </div>
       </form>
       {openResetDialog && (
