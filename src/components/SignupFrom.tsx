@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
 import { Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
 import { signUp } from "@/actions/auth";
+import { useServerAction } from "./hooks/useServerAction";
 
 type FormValues = {
   name: string;
@@ -44,19 +45,19 @@ export default function SignupForm() {
 
   // const mutation = useRegisterUser();
   const router = useRouter();
+  const [runActionSignup, isLoading] = useServerAction(signUp);
 
   const onSubmit = handleSubmit(async (userData) => {
     console.log("pranu0");
-    const { type, data } = await signUp(userData);
-    console.log("pranu", type);
-    if (type === "success") {
-      router.push(`/signin?${Email_VERIFICATION + "=" + data?.email}`);
+    const result = await runActionSignup(userData);
+    if (result?.type === "success") {
+      router.push(`/signin?${Email_VERIFICATION + "=" + result.data?.email}`);
       return;
     }
-    if (type === "error") {
+    if (result?.type === "error") {
       return toast({
         title: "Error",
-        description: String(data),
+        description: String(result.data),
         variant: "destructive",
       });
     }
@@ -131,7 +132,7 @@ export default function SignupForm() {
         <p className="text-sm text-red-500 dark:text-red-900">{errors.termsAccepted.message}</p>
       )}
       <div className="text-center">
-        <ButtonDark type="submit" title="sign up" loading={false} />
+        <ButtonDark type="submit" title="sign up" loading={isLoading} />
       </div>
     </form>
   );
