@@ -1,19 +1,21 @@
-#clerk config
+NODE_ENV=development
+VERIFICATION_TOKEN_EXPIRES=604800000      
+        #7 * 24 * 60 * 60 * 1000
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cmVsYXRpdmUtd29ybS0xOC5jbGVyay5hY2NvdW50cy5kZXYk
-CLERK_SECRET_KEY=sk_test_9ztqpqZtwo5Rn7kM77k2x1g5rgZqpKP9wMRFD2nwgK
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+#nextAuth
+AUTH_SECRET=mVrjutf+AdX8B6KwLsn7iBqPnfk/fzqvRXdHJyPMWrAG
+GOOGLE_CLIENT_ID=947648403057-4jjm931s7rptn79l57qoslr3sqnivu32.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+FACEBOOK_CLIENT_ID=1318084602162167
+FACEBOOK_CLIENT_SECRET=3509637daed0faa72672540fc50c7107
+LINKEDIN_CLIENT_ID=86ao5qvwa1euv4
+LINKEDIN_CLIENT_SECRET=9T7qoNagsoJS3L6y
 
 # Prisma config
 
-POSTGRES_URL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
-POSTGRES_PRISMA_URL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
-POSTGRES_URL_NO_SSL="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech:5432/verceldb"
-POSTGRES_URL_NON_POOLING="postgres://default:GWOxespFv6X7@ep-soft-field-a48k47jl.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
-POSTGRES_USER="default"
-POSTGRES_HOST="ep-soft-field-a48k47jl-pooler.us-east-1.aws.neon.tech"
-POSTGRES_PASSWORD="GWOxespFv6X7"
-POSTGRES_DATABASE="verceldb"
+MONGO_DB_STRING=mongodb+srv://pranavmappoli:pranavmappoli@ebat.j4ipyjg.mongodb.net/dev?retryWrites=true&w=majority
+MONGO_DB_PASSWORD=pranavmappoli
+
+# sendGrid
+
+SENDGRID_API_KEY='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'

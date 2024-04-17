@@ -12,7 +12,8 @@ import {
 } from "@/utils/errors";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { EMAIL_NOT_VERIFIED } from "@/utils/contants";
+import { EMAIL_NOT_VERIFIED, ERROR, FAIL, INVALID_TOKEN_ERROR, SUCCESS, TOKEN_EXPIRED } from "@/utils/contants";
+import { v4 as uuidv4 } from "uuid";
 
 type AuthReturnType = {
   type: string;
@@ -45,7 +46,7 @@ export async function signUp(data: authFormSchemaType): Promise<AuthReturnType> 
   if (!user) {
     return SOMETHING_WENT_WRONG_ERROR;
   }
-  return { type: "success", data: user };
+  return { type: SUCCESS, data: user };
 }
 
 export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
@@ -56,7 +57,7 @@ export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
   const { email, password } = validateFields.data;
   try {
     await signIn("credentials", { email, password, redirectTo: defaultLoginRedirect });
-    return { type: "success", data: "" };
+    return { type: SUCCESS, data: "" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -73,5 +74,53 @@ export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
       }
     }
     throw error;
+  }
+}
+
+export async function upsertVerificationToken(email: string): Promise<AuthReturnType> {
+  const uuidToken = uuidv4();
+  const tokenExpires = new Date(new Date().getTime() + Number(process.env.VERIFICATION_TOKEN_EXPIRES));
+  try {
+    const record = await prisma.verificationToken.upsert({
+      where: { email: email },
+      update: { token: uuidToken, expires: tokenExpires },
+      create: { email: email, token: uuidToken, expires: tokenExpires },
+    });
+    return { type: SUCCESS, data: record };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
+  }
+}
+export async function validateVerificationToken(token: string) {
+  try {
+    const record = await prisma.verificationToken.findFirst({
+      where: {
+        token: token,
+      },
+    });
+
+    if (record?.token === token) {
+      if (record.expires.getTime() > new Date().getTime()) {
+        return { type: SUCCESS, data: record };
+      } else {
+        return { type: ERROR, data: TOKEN_EXPIRED };
+      }
+    }
+    return { type: ERROR, data: INVALID_TOKEN_ERROR };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
+  }
+}
+export async function deleteVerificationToken(email: string) {
+  try {
+    const record = await prisma.verificationToken.delete({
+      where: {
+        email: email,
+      },
+    });
+
+    return { type: SUCCESS, data: record };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
   }
 }

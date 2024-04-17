@@ -27,14 +27,15 @@ export async function findUserById(id: string) {
   }
 }
 
-export async function setEmailVerified(id: string) {
+export async function setEmailVerified(email: string) {
   try {
     await prisma.user.update({
       where: {
-        id,
+        email,
       },
       data: { emailVerified: new Date() },
     });
+    return true;
   } catch (error) {
     return null;
   }

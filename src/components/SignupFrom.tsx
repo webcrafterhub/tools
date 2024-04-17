@@ -9,7 +9,7 @@ import ButtonDark from "./ButtonDark";
 // import useRegisterUser from '@/hooks/useRegisterUser';
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
-import { Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
+import { EMAIL_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
 import { signUp } from "@/actions/auth";
 import { useServerAction } from "./hooks/useServerAction";
 
@@ -48,10 +48,9 @@ export default function SignupForm() {
   const [runActionSignup, isLoading] = useServerAction(signUp);
 
   const onSubmit = handleSubmit(async (userData) => {
-    console.log("pranu0");
     const result = await runActionSignup(userData);
     if (result?.type === "success") {
-      router.push(`/signin?${Email_VERIFICATION + "=" + result.data?.email}`);
+      router.push(`/signin?${EMAIL_VERIFICATION + "=" + result.data?.email}`);
       return;
     }
     if (result?.type === "error") {
