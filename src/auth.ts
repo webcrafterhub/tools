@@ -28,7 +28,7 @@ const prisma = new PrismaClient();
 export const { handlers, auth, signIn, signOut } = NextAuth({
   events: {
     async linkAccount({ user }) {
-      await setEmailVerified(user.id!);
+      await setEmailVerified(user.email!);
     },
   },
   callbacks: {

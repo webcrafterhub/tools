@@ -9,11 +9,19 @@ import ButtonBlue from "./ButtonBlue";
 // import useLoginUser from '@/hooks/useLoginUser';
 import { toast } from "./ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import { EMAIL_NOT_VERIFIED, Email_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
+import {
+  EMAIL_NOT_VERIFIED,
+  EMAIL_VALIDATION,
+  EMAIL_VERIFICATION,
+  ERROR,
+  LOADING,
+  SOMETHING_WENT_WRONG,
+} from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
-import { logIn } from "@/actions/auth";
-import VerifyEmailModal from "./ui/VerifyEmailModal";
+import { logIn, upsertVerificationToken } from "@/actions/auth";
+import EmailVerificationModal from "./EmailVerificationModal";
 import { useServerAction } from "./hooks/useServerAction";
+import mailer from "@/lib/mailer";
 
 type FormValues = {
   email: string;
@@ -39,8 +47,9 @@ export default function SigninForm() {
   // const mutation = useLoginUser();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const verificationEmail = searchParams.get(Email_VERIFICATION);
+  const verificationEmail = searchParams.get(EMAIL_VERIFICATION);
   const [runActionSignin, isLoading] = useServerAction(logIn);
+  const [formStatus, setFormStatus] = useState({ type: LOADING, data: "" });
 
   useEffect(() => {
     if (verificationEmail) {
@@ -48,6 +57,22 @@ export default function SigninForm() {
       setUserData({ email: verificationEmail });
     }
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (openEmailVerification && userData.email) {
+        const verification = await upsertVerificationToken(userData.email);
+        if (verification.type === ERROR) {
+          return toast({
+            title: "Error",
+            description: verification.data,
+            variant: "destructive",
+          });
+        }
+        mailer(userData.email, EMAIL_VALIDATION, verification.data?.token);
+      }
+    })();
+  }, [openEmailVerification]);
 
   const onSubmit = handleSubmit(async (userData) => {
     setUserData(userData);
@@ -60,6 +85,7 @@ export default function SigninForm() {
     if (result?.type === "error") {
       if (result.cause === EMAIL_NOT_VERIFIED) {
         setOpenEmailVerification(true);
+        await upsertVerificationToken(userData.email);
         return;
       }
       return toast({
@@ -126,7 +152,7 @@ export default function SigninForm() {
         />
       )}
       {openEmailVerification && (
-        <VerifyEmailModal
+        <EmailVerificationModal
           open={openEmailVerification}
           dialogHandler={() => setOpenEmailVerification((prev) => !prev)}
           email={userData?.email || ""}

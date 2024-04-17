@@ -7,17 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import ButtonDark from "../ButtonDark";
+import ButtonDark from "./ButtonDark";
 import mailIcon from "@/assets/img/emailIcon.webp";
 import Image from "next/image";
 
-interface VerifyEmailModalProps {
+interface EmailVerificationModalProps {
   open: boolean;
   dialogHandler: () => void;
   email?: string;
 }
 
-const VerifyEmailModal: FC<VerifyEmailModalProps> = ({ open, dialogHandler, email }) => {
+const EmailVerificationModal: FC<EmailVerificationModalProps> = ({ open, dialogHandler, email }) => {
   return (
     <Dialog open={open} onOpenChange={dialogHandler}>
       <DialogContent>
@@ -43,4 +43,4 @@ const VerifyEmailModal: FC<VerifyEmailModalProps> = ({ open, dialogHandler, emai
   );
 };
 
-export default VerifyEmailModal;
+export default EmailVerificationModal;
