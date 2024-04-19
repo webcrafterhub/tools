@@ -1,6 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,16 +8,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import ButtonDark from "./ButtonDark";
 import * as z from "zod";
 import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 // import usePasswordForgot from "@/hooks/usePasswordForgot";
-import { toast } from "./ui/use-toast";
-import { ERROR, LOADING, RESET_PASSWORD, SOMETHING_WENT_WRONG, SUCCESS } from "@/utils/contants";
-import { da } from "date-fns/locale";
+import { ERROR, LOADING, RESET_PASSWORD, SUCCESS } from "@/utils/contants";
 import { upsertResetToken } from "@/actions/auth";
 import mailer from "@/lib/mailer";
 import { CheckCircledIcon } from "@radix-ui/react-icons";

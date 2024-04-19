@@ -1,6 +1,5 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
-import ButtonDark from "@/components/ButtonDark";
 import verificationIcon from "@/assets/img/verificationIcon.webp";
 import verificationBackground from "@/assets/img/verificationBackground.avif";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { MoonLoader } from "react-spinners";
 import FormError from "@/components/FormError";
 import FormSuccess from "@/components/FormSuccess";
-import { ERROR, FAIL, LOADING, SUCCESS, TOKEN, TOKEN_NOT_FOUND, VERIFICATION_SUCCESSFULL } from "@/utils/contants";
+import { ERROR, LOADING, SUCCESS, TOKEN, TOKEN_NOT_FOUND, VERIFICATION_SUCCESSFULL } from "@/utils/contants";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loginRoute } from "@/utils/routes";
 import { deleteVerificationToken, validateVerificationToken } from "@/actions/auth";

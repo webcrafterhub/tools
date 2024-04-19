@@ -4,7 +4,6 @@ import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import ButtonBlue from "./ButtonBlue";
 // import useLoginUser from '@/hooks/useLoginUser';
 import { toast } from "./ui/use-toast";
@@ -15,7 +14,6 @@ import {
   EMAIL_VERIFICATION,
   ERROR,
   LOADING,
-  SOMETHING_WENT_WRONG,
 } from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
 import { logIn, upsertVerificationToken } from "@/actions/auth";
