@@ -85,6 +85,12 @@ model VerificationToken {
   token      String
   expires    DateTime
 }
+model ResetToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  email      String   @unique
+  token      String
+  expires    DateTime
+}
 
 
 enum UserRole {

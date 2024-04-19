@@ -1,15 +1,29 @@
 "use client";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import backgroundImg from "@/assets/img/resetBackground.jpg";
 import ButtonDark from "@/components/ButtonDark";
 import { useRouter } from "next/navigation";
-import { SOMETHING_WENT_WRONG } from "@/utils/contants";
+import {
+  ERROR,
+  LOADING,
+  SOMETHING_WENT_WRONG,
+  SUCCESS,
+  TOKEN,
+  TOKEN_NOT_FOUND,
+  VERIFICATION_SUCCESSFULL,
+} from "@/utils/contants";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
+import { deleteResetToken, validateResetToken } from "@/actions/auth";
+import { SOMETHING_WENT_WRONG_ERROR } from "@/utils/errors";
+import { updateUserPassword } from "@/actions/user";
+import FormSuccess from "@/components/FormSuccess";
+import { loginRoute } from "@/utils/routes";
+import FormError from "@/components/FormError";
 interface pageProps {}
 
 type FormValues = {
@@ -37,16 +51,57 @@ const resolver: Resolver<FormValues> = zodResolver(schema);
 const ResetPassword: FC<pageProps> = ({}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const verificationToken = searchParams.get(TOKEN);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver });
 
-  const onSubmit = handleSubmit((data: { password: string }) => {
-    console.log({ password: data.password, token });
+  const [VerificationStatus, setVerificationStatus] = useState<{ type: string; data: any }>({
+    type: "",
+    data: "",
   });
+  const [timer, setTimer] = useState(3);
+  const intrvl: any = useRef();
+
+  useEffect(() => {
+    if (VerificationStatus.type === SUCCESS || VerificationStatus.type === ERROR) {
+      intrvl.current = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(intrvl.current);
+  }, [VerificationStatus]);
+
+  const onSubmit = handleSubmit(async (formData: { password: string }) => {
+    setVerificationStatus({ type: LOADING, data: "" });
+    if (!verificationToken) {
+      setVerificationStatus({ type: ERROR, data: TOKEN_NOT_FOUND });
+      return;
+    }
+    const data = await validateResetToken(verificationToken);
+    if (data.type === ERROR) {
+      return setVerificationStatus(data);
+    }
+
+    if (!(typeof data.data === "object")) {
+      return setVerificationStatus(SOMETHING_WENT_WRONG_ERROR);
+    }
+    // const setVerifyEmail = await setEmailVerified(data.data?.email);
+    const updatePassword = await updateUserPassword(data.data.email, formData.password);
+    if (!updatePassword) {
+      return setVerificationStatus(SOMETHING_WENT_WRONG_ERROR);
+    }
+    setVerificationStatus({ type: SUCCESS, data: VERIFICATION_SUCCESSFULL });
+    deleteResetToken(data.data.email);
+  });
+
+  if (timer === 0) {
+    clearInterval(intrvl.current);
+    router.push(loginRoute);
+  }
+
   return (
     <div className="m-0 mt-0 font-sans text-base antialiased font-normal transition-all duration-200 bg-white ease-soft-in-out text-start leading-default text-slate-500">
       <section className="max-h-screen">
@@ -97,9 +152,31 @@ const ResetPassword: FC<pageProps> = ({}) => {
                           <p className="text-sm text-red-500 dark:text-red-900">{errors.confirmPassword.message}</p>
                         )}
                       </div>
+                      {VerificationStatus.type == SUCCESS && (
+                        <>
+                          <FormSuccess message="Password reset successful" />
+                          <p className="text-sm pt-4 text-slate-400 text-center">
+                            You will be redirected to login in {timer} seconds
+                          </p>
+                        </>
+                      )}
+
+                      {VerificationStatus.type === ERROR && (
+                        <>
+                          <FormError message={VerificationStatus.data} />
+                          <p className="text-sm pt-4 text-slate-400 text-center">
+                            You will be redirected to login in {timer} seconds
+                          </p>
+                        </>
+                      )}
 
                       <div className="text-center">
-                        <ButtonDark type="submit" title="Reset Password" loading={false} />
+                        <ButtonDark
+                          disabled={VerificationStatus.type === SUCCESS || VerificationStatus.type === ERROR}
+                          type="submit"
+                          title="Reset Password"
+                          loading={VerificationStatus.type === LOADING}
+                        />
                       </div>
                     </form>
                   </div>

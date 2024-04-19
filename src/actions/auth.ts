@@ -76,7 +76,7 @@ export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
     throw error;
   }
 }
-
+// Verification Tokens
 export async function upsertVerificationToken(email: string): Promise<AuthReturnType> {
   const uuidToken = uuidv4();
   const tokenExpires = new Date(new Date().getTime() + Number(process.env.VERIFICATION_TOKEN_EXPIRES));
@@ -114,6 +114,56 @@ export async function validateVerificationToken(token: string) {
 export async function deleteVerificationToken(email: string) {
   try {
     const record = await prisma.verificationToken.delete({
+      where: {
+        email: email,
+      },
+    });
+
+    return { type: SUCCESS, data: record };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
+  }
+}
+
+// Rest Tokens
+export async function upsertResetToken(email: string): Promise<AuthReturnType> {
+  const uuidToken = uuidv4();
+  const tokenExpires = new Date(new Date().getTime() + Number(process.env.VERIFICATION_TOKEN_EXPIRES));
+  try {
+    const record = await prisma.resetToken.upsert({
+      where: { email: email },
+      update: { token: uuidToken, expires: tokenExpires },
+      create: { email: email, token: uuidToken, expires: tokenExpires },
+    });
+    return { type: SUCCESS, data: record };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
+  }
+}
+export async function validateResetToken(token: string) {
+  try {
+    const record = await prisma.resetToken.findFirst({
+      where: {
+        token: token,
+      },
+    });
+
+    if (record?.token === token) {
+      if (record.expires.getTime() > new Date().getTime()) {
+        return { type: SUCCESS, data: record };
+      } else {
+        return { type: ERROR, data: TOKEN_EXPIRED };
+      }
+    }
+    return { type: ERROR, data: INVALID_TOKEN_ERROR };
+  } catch (error) {
+    return SOMETHING_WENT_WRONG_ERROR;
+  }
+}
+
+export async function deleteResetToken(email: string) {
+  try {
+    const record = await prisma.resetToken.delete({
       where: {
         email: email,
       },
