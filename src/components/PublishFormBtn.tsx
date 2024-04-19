@@ -17,7 +17,7 @@ import {
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 
-function PublishFormBtn({ id }: { id: number }) {
+function PublishFormBtn({ id }: { id: string }) {
   const [loading, startTransition] = useTransition();
   const router = useRouter();
 

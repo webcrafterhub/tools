@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import { IconType } from "react-icons";
 
 interface SideNavItemProps {
   title: string;
