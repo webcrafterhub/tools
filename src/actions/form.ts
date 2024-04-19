@@ -1,8 +1,14 @@
 "use server";
-
+import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { formSchema, formSchemaType } from "@/schemas/form";
-import { currentUser } from "@clerk/nextjs";
+// import { currentUser } from "@clerk/nextjs";
+
+//change to nextauth
+const currentUser = async () => {
+  const session = await auth();
+  return session?.user;
+};
 
 class UserNotFoundErr extends Error {}
 
