@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -9,7 +9,7 @@ import ButtonDark from "./ButtonDark";
 // import useRegisterUser from '@/hooks/useRegisterUser';
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
-import { EMAIL_VERIFICATION, SOMETHING_WENT_WRONG } from "@/utils/contants";
+import { EMAIL_VERIFICATION } from "@/utils/contants";
 import { signUp } from "@/actions/auth";
 import { useServerAction } from "./hooks/useServerAction";
 

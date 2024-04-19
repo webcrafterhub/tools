@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import WhiteCurdDesign from "../assets/img/curved-images/white-curved.jpeg";
 import logo from "../assets/img/logo-ct.png";
 import Image from "next/image";
 import SideNavItem from "./SideNavItem";

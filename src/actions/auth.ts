@@ -12,7 +12,7 @@ import {
 } from "@/utils/errors";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { EMAIL_NOT_VERIFIED, ERROR, FAIL, INVALID_TOKEN_ERROR, SUCCESS, TOKEN_EXPIRED } from "@/utils/contants";
+import { EMAIL_NOT_VERIFIED, ERROR, INVALID_TOKEN_ERROR, SUCCESS, TOKEN_EXPIRED } from "@/utils/contants";
 import { v4 as uuidv4 } from "uuid";
 
 type AuthReturnType = {

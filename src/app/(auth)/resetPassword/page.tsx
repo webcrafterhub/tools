@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import {
   ERROR,
   LOADING,
-  SOMETHING_WENT_WRONG,
   SUCCESS,
   TOKEN,
   TOKEN_NOT_FOUND,
@@ -17,7 +16,6 @@ import {
 } from "@/utils/contants";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
 import { deleteResetToken, validateResetToken } from "@/actions/auth";
 import { SOMETHING_WENT_WRONG_ERROR } from "@/utils/errors";
 import { updateUserPassword } from "@/actions/user";
