@@ -8,13 +8,7 @@ import ButtonBlue from "./ButtonBlue";
 // import useLoginUser from '@/hooks/useLoginUser';
 import { toast } from "./ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  EMAIL_NOT_VERIFIED,
-  EMAIL_VALIDATION,
-  EMAIL_VERIFICATION,
-  ERROR,
-  LOADING,
-} from "@/utils/contants";
+import { EMAIL_NOT_VERIFIED, EMAIL_VALIDATION, EMAIL_VERIFICATION, ERROR, LOADING } from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
 import { logIn, upsertVerificationToken } from "@/actions/auth";
 import EmailVerificationModal from "./EmailVerificationModal";
@@ -130,6 +124,7 @@ export default function SigninForm() {
         <div className="flex justify-end w-full text-xs text-slate-500 ">
           <button
             aria-label="forgot password"
+            type="button"
             onClick={(e) => {
               e.preventDefault();
               setOpenResetDialog(true);
