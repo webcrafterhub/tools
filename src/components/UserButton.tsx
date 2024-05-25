@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import fallbackImg from "../assets/img/avatarFallback.webp";
-import { auth, signOut } from "@/auth";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 
-interface UserButtonProps {}
+interface UserButtonProps {
+  session: Session | null;
+}
 import {
   // Cloud,
   CreditCard,
@@ -37,18 +39,18 @@ import {
   // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Session } from "next-auth";
 
-const UserButton: FC<UserButtonProps> = async ({}) => {
-  const session = await auth();
+const UserButton: FC<UserButtonProps> = ({ session }) => {
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="focus-visible:ring-0 select-none w-9 h-9 rounded-full" variant="ghost" size="icon">
+          <Button className="rounded-full select-none focus-visible:ring-0 w-9 h-9" variant="ghost" size="icon">
             <Avatar>
               <AvatarImage src={session?.user.image || undefined} />
               <AvatarFallback>
-                <Image className="outline-none rounded-full" src={fallbackImg} alt="AB" />
+                <Image className="rounded-full outline-none" src={fallbackImg} alt="AB" />
               </AvatarFallback>
             </Avatar>
           </Button>
@@ -58,41 +60,35 @@ const UserButton: FC<UserButtonProps> = async ({}) => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
+              <User className="w-4 h-4 mr-2" />
               <span>Profile</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <CreditCard className="mr-2 h-4 w-4" />
+              <CreditCard className="w-4 h-4 mr-2" />
               <span>Billing</span>
               <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="w-4 h-4 mr-2" />
               <span>Settings</span>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <LifeBuoy className="mr-2 h-4 w-4" />
+              <LifeBuoy className="w-4 h-4 mr-2" />
               <span>Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <form
-              action={async () => {
-                "use server";
-                await signOut();
-              }}
-            >
-              <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <Button className="h-0" variant="ghost">
-                  Log out
-                </Button>
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </form>
+            <DropdownMenuItem onClick={() => signOut()}>
+              <LogOut className="w-4 h-4 mr-2" />
+              <Button className="h-0" variant="ghost">
+                Log out
+              </Button>
+              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            </DropdownMenuItem>
+
             {/* <DropdownMenuItem>
-              <Keyboard className="mr-2 h-4 w-4" />
+              <Keyboard className="w-4 h-4 mr-2" />
               <span>Keyboard shortcuts</span>
               <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
             </DropdownMenuItem> */}
@@ -100,46 +96,46 @@ const UserButton: FC<UserButtonProps> = async ({}) => {
           {/* <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <Users className="mr-2 h-4 w-4" />
+              <Users className="w-4 h-4 mr-2" />
               <span>Team</span>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <UserPlus className="mr-2 h-4 w-4" />
+                <UserPlus className="w-4 h-4 mr-2" />
                 <span>Invite users</span>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem>
-                    <Mail className="mr-2 h-4 w-4" />
+                    <Mail className="w-4 h-4 mr-2" />
                     <span>Email</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <MessageSquare className="mr-2 h-4 w-4" />
+                    <MessageSquare className="w-4 h-4 mr-2" />
                     <span>Message</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <PlusCircle className="mr-2 h-4 w-4" />
+                    <PlusCircle className="w-4 h-4 mr-2" />
                     <span>More...</span>
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
             <DropdownMenuItem>
-              <Plus className="mr-2 h-4 w-4" />
+              <Plus className="w-4 h-4 mr-2" />
               <span>New Team</span>
               <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Github className="mr-2 h-4 w-4" />
+            <Github className="w-4 h-4 mr-2" />
             <span>GitHub</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem disabled>
-            <Cloud className="mr-2 h-4 w-4" />
+            <Cloud className="w-4 h-4 mr-2" />
             <span>API</span>
           </DropdownMenuItem> */}
         </DropdownMenuContent>

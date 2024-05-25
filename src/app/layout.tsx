@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import React from "react";
+import Nav from "@/components/nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NextTopLoader />
         <DesignerContextProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
+            <div className="bg-home-gradient dark:bg-none">
+              <Nav />
+              {children}
+            </div>
             <Toaster />
           </ThemeProvider>
         </DesignerContextProvider>
