@@ -67,12 +67,14 @@
     "postcss": "8.4.29",
     "prettier": "^3.0.3",
     "react": "18.2.0",
+    "react-ace": "^11.0.1",
     "react-confetti": "^6.1.0",
     "react-day-picker": "^8.8.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.46.2",
     "react-icons": "^4.11.0",
     "react-spinners": "^0.13.8",
+    "react18-json-view": "0.2.8-canary.6",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
@@ -83,6 +85,7 @@
   "devDependencies": {
     "@types/uuid": "^9.0.8",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "prisma": "^5.12.1"
+    "prisma": "^5.12.1",
+    "tailwind-scrollbar": "^3.1.0"
   }
 }
