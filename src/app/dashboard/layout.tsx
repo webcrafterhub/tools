@@ -11,13 +11,6 @@ function Layout({ children }: { children: ReactNode }) {
       <SidebarNav />
 
       <div className="flex flex-col w-full min-h-screen bg-background">
-        <nav className="flex justify-between items-center border-b border-border h-[60px] px-4 py-2">
-          <Logo />
-          <div className="flex items-center gap-4">
-            <ThemeSwitcher />
-            <UserButton />
-          </div>
-        </nav>
         <main className="flex flex-grow w-full">{children}</main>
       </div>
     </div>
