@@ -6,6 +6,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import UserButton from "./UserButton";
 import { Session } from "next-auth";
 import { Button } from "./ui/button";
+import LoginModal from "./LoginModal";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const scrolled = useScroll(50);
@@ -27,13 +28,7 @@ export default function NavBar({ session }: { session: Session | null }) {
           <div className="flex gap-4">
             <ThemeSwitcher />
 
-            {session ? (
-              <UserButton session={session} />
-            ) : (
-              <Button variant={"outline"} className="w-full ml-2 font-medium whitespace-nowrap">
-                Login
-              </Button>
-            )}
+            {session ? <UserButton session={session} /> : <LoginModal />}
           </div>
         </div>
       </div>
