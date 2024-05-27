@@ -32,25 +32,41 @@ function JSONFormatter() {
     } catch (error) {}
   }, [jsonStr]);
 
-  function removeTrailingCommas(jsonString: string) {
-    // This regex finds trailing commas at the end of objects and arrays
-    const cleanedJsonString = jsonString.replace(/,\s*([\]}])/g, "$1");
-    return cleanedJsonString;
+  function cleanJson(jsonString: string) {
+    try {
+      // Try parsing the JSON to ensure it's valid
+      JSON.parse(jsonString);
+      return jsonString;
+    } catch (e) {
+      // Remove quotes around the entire JSON object
+      let cleanedJsonString = jsonString.replace(/^"([\s\S]*)"$/, "$1");
+
+      // If parsing fails, attempt to clean the JSON string
+
+      // Remove any trailing commas inside objects or arrays
+      cleanedJsonString = jsonString.replace(/,\s*([\]}])/g, "$1");
+
+      // Fix common JSON typos: missing quotes around keys
+      cleanedJsonString = cleanedJsonString.replace(/([{,]\s*)([a-zA-Z_][\w\s]*)(\s*:)/g, '$1"$2"$3');
+
+      return cleanedJsonString;
+    }
   }
 
   function AceChangeHandler(text: string, event: any) {
     try {
-      const jsonStr = removeTrailingCommas(text);
-      setJsonStr(JSON.stringify(JSON.parse(jsonStr), null, 2));
+      const cleanedJson = cleanJson(text);
+      const parsedJson = JSON.parse(cleanedJson);
+      const jsonStr = JSON.stringify(parsedJson, null, 2);
+      setJsonStr(jsonStr);
     } catch (error) {
-      console.log("err", error);
+      console.log("mm err", error);
       // pass, user is editing
     }
   }
-  console.log("mm", jsonObj);
   return (
     <div className="container min-h-screen flex flex-col gap-4 justify-center">
-      <FileUpload />
+      <FileUpload cleanJson={cleanJson} setJsonStr={setJsonStr} />
       <div className="editors flex flex-col lg:flex-row gap-2 min-h-[50vh] max-h-[70vh]">
         <Card className="flex-1 shadow-md shadow-blue-600 overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-blue-400 scrollbar-track-slate-300">
           <CardHeader>
