@@ -1,4 +1,4 @@
-import JSONFormatter from "@/components/JSONFormatter";
+import JSONFormatter from "@/components/tools/json-formatter/JSONFormatter";
 import React, { FC } from "react";
 
 interface pageProps {}
