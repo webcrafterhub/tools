@@ -7,11 +7,16 @@ import { toast } from "@/components/ui/use-toast";
 interface FileUploadProps {
   cleanJson: Function;
   setJsonStr: Function;
+  loadingHandler: Function;
 }
 
-const FileUpload: FC<FileUploadProps> = ({ cleanJson, setJsonStr }) => {
+const FileUpload: FC<FileUploadProps> = ({ cleanJson, setJsonStr, loadingHandler }) => {
   const [uploadError, setUploadError] = useState<String>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    loadingHandler(loading);
+  }, [loading]);
 
   useEffect(() => {
     if (!uploadError) return;
@@ -69,8 +74,7 @@ const FileUpload: FC<FileUploadProps> = ({ cleanJson, setJsonStr }) => {
   }
   return (
     <>
-      {loading && <div>loadingg</div>}
-      <div className="flex items-center justify-center w-full " {...getRootProps()}>
+      <div className="flex items-center justify-center w-full " {...getRootProps()} aria-disabled={loading}>
         <label
           htmlFor="dropzone-file"
           className="flex flex-col items-center justify-center relative w-full h-28 md:h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  dark:bg-transparent hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-900"
