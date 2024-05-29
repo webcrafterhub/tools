@@ -2,7 +2,8 @@ import React, { FC, useState } from "react";
 import AceEditor from "react-ace";
 import { config } from "ace-builds";
 import "ace-builds/src-noconflict/mode-json";
-import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/theme-chrome";
 const jsonWorkerUrl = new URL("ace-builds/src-noconflict/worker-json", import.meta.url);
 config.setModuleUrl("ace/mode/json_worker", jsonWorkerUrl.toString());
 import { useTheme } from "next-themes";
@@ -37,7 +38,7 @@ const AceJSONEditor: FC<AceJSONEditorProps> = ({ value, changeHandler }) => {
           enableSnippets: true,
           showLineNumbers: true,
           tabSize: 2,
-          maxLines: 20,
+          maxLines: 24,
         }}
       />
     </>
