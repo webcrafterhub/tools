@@ -13,8 +13,16 @@ import AceJSONEditor from "./AceJSONEditor";
 import FileUpload from "./FileUpload";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import useDeviceType from "@/components/hooks/useDeviceType";
-import CopyToolTip from "@/components/copyToolTip";
+import CopyToolTip from "@/components/tools/json-formatter/CopyToolTip";
 import Image from "next/image";
+import FormatToolTip from "./FormatToolTip";
+
+interface Annotation {
+  row: number;
+  column: number;
+  text: string;
+  type: string;
+}
 
 const JSON_DUMMY_DATA = {
   id: 1,
@@ -32,12 +40,15 @@ function JSONFormatter() {
   const [jsonObj, setJsonObj] = useState<object>(JSON_DUMMY_DATA);
   const [jsonStr, setJsonStr] = useState(JSON.stringify(JSON_DUMMY_DATA, null, 2));
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationError] = useState<Annotation[]>([]);
   const deviceType = useDeviceType();
 
   useEffect(() => {
     try {
       setJsonObj(JSON.parse(jsonStr));
-    } catch (error) {}
+    } catch (error) {
+      setJsonObj({});
+    }
   }, [jsonStr]);
 
   function cleanJson(jsonString: string) {
@@ -61,34 +72,60 @@ function JSONFormatter() {
     }
   }
 
-  function AceChangeHandler(text: string, event: any) {
+  function validationHandler(errors: Annotation[]) {
+    setValidationError(errors);
+  }
+
+  function AceInitialLoadHandler(text: string, event?: any) {
     try {
       const cleanedJson = cleanJson(text);
       const parsedJson = JSON.parse(cleanedJson);
-      const jsonStr = JSON.stringify(parsedJson, null, 2);
-      setJsonStr(jsonStr);
+      const formattedJsonStr = JSON.stringify(parsedJson, null, 2);
+
+      setJsonStr(formattedJsonStr);
     } catch (error) {
       // pass, user is editing
+      setJsonStr(text);
     }
   }
+  function AceChangeHandler(text: string, event: any) {
+    try {
+      console.log("chng", text, event);
+      setJsonStr(text);
+    } catch (error) {
+      // pass, user is editing
+      setJsonStr(text);
+    }
+  }
+
   return (
     <div className="container min-h-screen flex flex-col gap-4 justify-center">
-      <FileUpload cleanJson={cleanJson} setJsonStr={setJsonStr} loadingHandler={setLoading} />
+      <FileUpload setJsonStr={AceInitialLoadHandler} loadingHandler={setLoading} />
       <ResizablePanelGroup
         direction={deviceType === "mobile" ? "vertical" : "horizontal"}
-        className="codebox min-h-[50vh] max-h-[70vh] "
+        className="codebox md:min-h-[50vh] min-h-[100vh] md:max-h-[70vh] "
       >
         <ResizablePanel>
           <Card className="h-full shadow-inner shadow-blue-600 overflow-y-scroll scrollbar-none scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-blue-400 scrollbar-track-slate-300">
             {loading && <LoadingGear />}
             {!loading && (
               <>
-                <CardHeader>
-                  <CardTitle>JSON EDITOR</CardTitle>
-                  <CardDescription>Copy and paste your JSON here</CardDescription>
+                <CardHeader className="flex flex-row justify-between items-center">
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>JSON EDITOR</CardTitle>
+                    <CardDescription>Copy and paste your JSON here</CardDescription>
+                  </div>
+                  <FormatToolTip
+                    format={() => AceInitialLoadHandler(jsonStr)}
+                    disabled={loading || validationErrors.length}
+                  />
                 </CardHeader>
                 <CardContent>
-                  <AceJSONEditor value={jsonStr} changeHandler={AceChangeHandler} />
+                  <AceJSONEditor
+                    value={jsonStr}
+                    changeHandler={AceChangeHandler}
+                    validationHandler={validationHandler}
+                  />
                 </CardContent>
               </>
             )}
@@ -96,27 +133,39 @@ function JSONFormatter() {
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel>
-          <Card className="h-full relative  shadow-inner shadow-green-600 ">
+          <Card className="h-full flex flex-col relative  shadow-inner shadow-green-600 ">
             {loading && <LoadingGear />}
             {!loading && (
-              <div className="flex flex-col gap-4 h-full justify-center items-center">
-                <Image className="w-1/3 h-1/3" src={jsonErrorImg} alt="json-error" />
-                <span className="font-semibold text-center text-red-400">
-                  The JSON provided is invalid. Please review and correct it.{" "}
-                </span>
-              </div>
-              // <>
-              //   <CardHeader className="flex flex-row justify-between items-center">
-              //     <div>
-              //       <CardTitle>JSON VIEWER</CardTitle>
-              //       <CardDescription>Add / edit JSON structurally</CardDescription>
-              //     </div>
-              //     <CopyToolTip />
-              //   </CardHeader>
-              //   <CardContent className="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-green-400 scrollbar-track-slate-300">
-              //     <JsonView src={jsonObj} />
-              //   </CardContent>
-              // </>
+              <>
+                <CardHeader className="flex flex-row justify-between items-center">
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>JSON VIEWER</CardTitle>
+                    <CardDescription>View JSON in structured format</CardDescription>
+                  </div>
+                  <CopyToolTip data={jsonStr} disabled={loading || validationErrors.length} />
+                </CardHeader>
+                {validationErrors.length ? (
+                  <div className="flex justify-center items-center flex-1">
+                    <div className="flex flex-col gap-4  justify-center items-center">
+                      <Image width={150} height={150} src={jsonErrorImg} alt="json-error" />
+                      <span className="font-semibold text-center text-gray-600 dark:text-gray-300">
+                        The JSON provided is invalid. Please review and correct it.
+                      </span>
+                      <ul>
+                        {validationErrors.map((error) => (
+                          <li className="text-center text-red-400">{`Error at line ${error.row + 1}, column ${
+                            error.column + 1
+                          }: ${error.text}`}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <CardContent className="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-green-400 scrollbar-track-slate-300">
+                    <JsonView src={jsonObj} />
+                  </CardContent>
+                )}
+              </>
             )}
           </Card>
         </ResizablePanel>
