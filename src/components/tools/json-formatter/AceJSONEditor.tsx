@@ -11,10 +11,16 @@ import { useTheme } from "next-themes";
 interface AceJSONEditorProps {
   value: string;
   changeHandler: (value: string, event?: any) => void;
+  validationHandler: Function;
 }
 
-const AceJSONEditor: FC<AceJSONEditorProps> = ({ value, changeHandler }) => {
+const AceJSONEditor: FC<AceJSONEditorProps> = ({ value, changeHandler, validationHandler }) => {
   const { theme } = useTheme();
+
+  const onValidate = (annotations: any[]) => {
+    const errorList = annotations.filter((annotation) => annotation.type === "error");
+    validationHandler(errorList);
+  };
 
   return (
     <>
@@ -32,6 +38,7 @@ const AceJSONEditor: FC<AceJSONEditorProps> = ({ value, changeHandler }) => {
         highlightActiveLine={true}
         value={value}
         wrapEnabled={true}
+        onValidate={onValidate}
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,

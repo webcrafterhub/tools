@@ -5,12 +5,11 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "@/components/ui/use-toast";
 
 interface FileUploadProps {
-  cleanJson: Function;
   setJsonStr: Function;
   loadingHandler: Function;
 }
 
-const FileUpload: FC<FileUploadProps> = ({ cleanJson, setJsonStr, loadingHandler }) => {
+const FileUpload: FC<FileUploadProps> = ({ setJsonStr, loadingHandler }) => {
   const [uploadError, setUploadError] = useState<String>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -60,8 +59,8 @@ const FileUpload: FC<FileUploadProps> = ({ cleanJson, setJsonStr, loadingHandler
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const cleanedJson = cleanJson(e.target?.result as string);
-        setJsonStr(cleanedJson);
+        const JsonData = e.target?.result as string;
+        setJsonStr(JsonData);
         setUploadError("");
       } catch (error) {
         setUploadError("Invalid JSON content. Please upload a file with valid JSON format.");
