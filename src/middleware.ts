@@ -1,5 +1,5 @@
 import { auth as middleware } from "@/auth";
-import { apiAuthRoutes, authRoutes, defaultLoginRedirect, publicRoutes } from "./utils/routes";
+import { apiAuthRoutes, authRoutes, defaultLoginRedirect, publicRoutes, privateRoutes } from "./utils/routes";
 
 export default middleware((req) => {
   const { nextUrl } = req;
@@ -15,7 +15,8 @@ export default middleware((req) => {
     }
     return;
   }
-  if (!isLoggedIn && !publicRoutes.includes(nextUrl.pathname)) {
+
+  if (!isLoggedIn && privateRoutes.includes(nextUrl.pathname)) {
     const absoluteURL = new URL("/signin", nextUrl);
     return Response.redirect(absoluteURL);
   }

@@ -11,7 +11,7 @@ interface SidebarNavProps {}
 
 const SidebarNav: FC<SidebarNavProps> = ({}) => {
   return (
-    <nav className="flex flex-col text-white max-w-[16rem] min-w-[16rem] py-4 ml-5  ease-nav-brand z-990 fixed xl:sticky h-screen inset-0   w-full -translate-x-full flex-wrap   justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 -left-8 xl:left-0 xl:-translate-x-0 xl:bg-transparent ">
+    <nav className="flex flex-col text-white max-w-[16rem] min-w-[16rem] py-4 ml-5  ease-nav-brand z-990 fixed xl:sticky h-screen inset-0   w-full -translate-x-full flex-wrap   justify-between overflow-y-auto rounded-2xl border-0 p-0 antialiased shadow-none transition-transform duration-200 -left-8 xl:left-0 xl:-translate-x-0 xl:bg-transparent ">
       <div className="flex flex-col gap-8">
         <div>
           <div className="flex px-8 py-6 m-0 text-sm whitespace-nowrap ">
