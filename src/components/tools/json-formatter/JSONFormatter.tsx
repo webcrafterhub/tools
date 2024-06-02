@@ -91,7 +91,6 @@ function JSONFormatter() {
   }
   function AceChangeHandler(text: string, event: any) {
     try {
-      console.log("chng", text, event);
       setJsonStr(text);
     } catch (error) {
       // pass, user is editing
