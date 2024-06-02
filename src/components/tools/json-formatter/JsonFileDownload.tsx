@@ -47,24 +47,24 @@ const JsonFileDownload: FC<JsonFileDownloadProps> = ({ jsonObj }) => {
 
   const downloadJson = async () => {
     const blob = new Blob([JSON.stringify(jsonObj, null, 2)], { type: "application/json" });
-    saveAs(blob, "jsonObj.json");
+    saveAs(blob, "jsonData.json");
   };
 
   const downloadCsv = async () => {
     const json2csvParser = new Parser();
     const csv = json2csvParser.parse(jsonObj);
     const blob = new Blob([csv], { type: "text/csv" });
-    saveAs(blob, "jsonObj.csv");
+    saveAs(blob, "jsonData.csv");
   };
 
   const downloadTxt = async () => {
     const text = JSON.stringify(jsonObj, null, 2);
     const blob = new Blob([text], { type: "text/plain" });
-    saveAs(blob, "jsonObj.txt");
+    saveAs(blob, "jsonData.txt");
   };
 
   return (
-    <div className="text-gray-600">
+    <div className="text-gray-600 dark:text-gray-200">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="flex gap-2" variant="outline">
