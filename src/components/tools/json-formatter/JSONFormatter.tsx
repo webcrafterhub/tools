@@ -16,6 +16,7 @@ import useDeviceType from "@/components/hooks/useDeviceType";
 import CopyToolTip from "@/components/tools/json-formatter/CopyToolTip";
 import Image from "next/image";
 import FormatToolTip from "./FormatToolTip";
+import JsonFileDownload from "./JsonFileDownload";
 
 interface Annotation {
   row: number;
@@ -105,7 +106,7 @@ function JSONFormatter() {
         direction={deviceType === "mobile" ? "vertical" : "horizontal"}
         className="codebox md:min-h-[50vh] min-h-[100vh] md:max-h-[70vh] "
       >
-        <ResizablePanel>
+        <ResizablePanel className="relative">
           <Card className="h-full shadow-inner shadow-blue-600 overflow-y-scroll scrollbar-none scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-blue-400 scrollbar-track-slate-300">
             {loading && <LoadingGear />}
             {!loading && (
@@ -126,6 +127,9 @@ function JSONFormatter() {
                     changeHandler={AceChangeHandler}
                     validationHandler={validationHandler}
                   />
+                  <div className="absolute right-0 bottom-0 p-4 z-50">
+                    <JsonFileDownload jsonObj={jsonObj} />
+                  </div>
                 </CardContent>
               </>
             )}
