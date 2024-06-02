@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "../../ui/button";
 import { FaRegCopy } from "react-icons/fa6";
+import { FaCopy } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
 
 interface CopyToolTipProps {
@@ -31,13 +32,11 @@ const CopyToolTip: FC<CopyToolTipProps> = ({ disabled, data }) => {
             <Button className="flex gap-1" variant="outline" onClick={copyHandler} disabled={!!disabled}>
               {copied ? (
                 <>
-                  <MdDone className="text-base text-blue-500" />
-                  <span className="text-blue-500">Copied</span>
+                  <FaCopy className="text-base text-blue-500" />
                 </>
               ) : (
                 <>
-                  <FaRegCopy />
-                  <span>Copy</span>
+                  <FaRegCopy className="" />
                 </>
               )}
             </Button>

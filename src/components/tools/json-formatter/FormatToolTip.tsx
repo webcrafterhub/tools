@@ -4,7 +4,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Button } from "../../ui/button";
 import { GiStarFormation } from "react-icons/gi";
 import { MdDone } from "react-icons/md";
-import { cn } from "@/lib/utils";
+import { PiShootingStar } from "react-icons/pi";
+import { PiShootingStarFill } from "react-icons/pi";
 
 interface FormatToolTipProps {
   disabled?: boolean | number;
@@ -29,8 +30,16 @@ const FormatToolTip: FC<FormatToolTipProps> = ({ disabled, format }) => {
       <TooltipProvider delayDuration={400}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button className="flex gap-1 " variant="outline" onClick={formatHandler} disabled={!!disabled}>
-              <GiStarFormation className={cn("text-lg text-blue-400", { "text-yellow-500": formatted })} />
+            <Button className="flex gap-1" variant="outline" onClick={formatHandler} disabled={!!disabled}>
+              {formatted ? (
+                <>
+                  <PiShootingStarFill className="text-xl text-blue-500" />
+                </>
+              ) : (
+                <>
+                  <PiShootingStar className="text-lg" />
+                </>
+              )}
             </Button>
           </TooltipTrigger>
           <TooltipContent>
