@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -27,7 +27,11 @@ const schema = z.object({
 
 const resolver: Resolver<FormValues> = zodResolver(schema);
 
-export default function SigninForm() {
+interface SigninFormProps {
+  modelHandler?: Function;
+}
+
+const SigninForm: FC<SigninFormProps> = ({ modelHandler }) => {
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [openEmailVerification, setOpenEmailVerification] = useState(false);
   const [userData, setUserData] = useState({ email: "" });
@@ -37,7 +41,6 @@ export default function SigninForm() {
     formState: { errors },
   } = useForm<FormValues>({ resolver });
   // const mutation = useLoginUser();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const verificationEmail = searchParams.get(EMAIL_VERIFICATION);
   const [runActionSignin, isLoading] = useServerAction(logIn);
@@ -71,7 +74,7 @@ export default function SigninForm() {
     const result = await runActionSignin(userData);
 
     if (result?.type === "success") {
-      router.push("/signin");
+      if (modelHandler) modelHandler(false);
       return;
     }
     if (result?.type === "error") {
@@ -87,6 +90,11 @@ export default function SigninForm() {
       });
     }
   });
+
+  const emailVerificationCloseHanlder = () => {
+    if (modelHandler) modelHandler(false);
+    setOpenEmailVerification((prev) => !prev);
+  };
 
   return (
     <>
@@ -147,10 +155,11 @@ export default function SigninForm() {
       {openEmailVerification && (
         <EmailVerificationModal
           open={openEmailVerification}
-          dialogHandler={() => setOpenEmailVerification((prev) => !prev)}
+          dialogHandler={emailVerificationCloseHanlder}
           email={userData?.email || ""}
         />
       )}
     </>
   );
-}
+};
+export default SigninForm;

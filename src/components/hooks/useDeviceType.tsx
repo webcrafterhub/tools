@@ -21,9 +21,10 @@ const getDeviceType = (width: number): DeviceType => {
 };
 
 const useDeviceType = (): DeviceType => {
-  const [deviceType, setDeviceType] = useState<DeviceType>(getDeviceType(window.innerWidth));
+  const [deviceType, setDeviceType] = useState<DeviceType>(getDeviceType(1200));
 
   useEffect(() => {
+    if (!window) return;
     const handleResize = () => {
       setDeviceType(getDeviceType(window.innerWidth));
     };

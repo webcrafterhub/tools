@@ -6,14 +6,7 @@ import * as z from "zod";
 import backgroundImg from "@/assets/img/resetBackground.jpg";
 import ButtonDark from "@/components/ButtonDark";
 import { useRouter } from "next/navigation";
-import {
-  ERROR,
-  LOADING,
-  SUCCESS,
-  TOKEN,
-  TOKEN_NOT_FOUND,
-  VERIFICATION_SUCCESSFULL,
-} from "@/utils/contants";
+import { ERROR, LOADING, SUCCESS, TOKEN, TOKEN_NOT_FOUND, VERIFICATION_SUCCESSFULL } from "@/utils/contants";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { deleteResetToken, validateResetToken } from "@/actions/auth";
@@ -97,7 +90,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
 
   if (timer === 0) {
     clearInterval(intrvl.current);
-    router.push(loginRoute);
+    router.push("/");
   }
 
   return (
