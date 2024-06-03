@@ -54,9 +54,7 @@ const SignupForm: FC<SignupFormProps> = ({ modelHandler }) => {
   const onSubmit = handleSubmit(async (userData) => {
     setUserData(userData);
     const result = await runActionSignup(userData);
-    console.log("moomyyy", openEmailVerification);
     if (result?.type === "success") {
-      console.log("moo", openEmailVerification);
       setOpenEmailVerification(true);
     }
     if (result?.type === "error") {

@@ -147,7 +147,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                         <>
                           <FormSuccess message="Password reset successful" />
                           <p className="text-sm pt-4 text-slate-400 text-center">
-                            You will be redirected to login in {timer} seconds
+                            You will be redirected in {timer} seconds
                           </p>
                         </>
                       )}
@@ -156,7 +156,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                         <>
                           <FormError message={VerificationStatus.data} />
                           <p className="text-sm pt-4 text-slate-400 text-center">
-                            You will be redirected to login in {timer} seconds
+                            You will be redirected in {timer} seconds
                           </p>
                         </>
                       )}
