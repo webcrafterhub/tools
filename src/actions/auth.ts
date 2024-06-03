@@ -9,11 +9,21 @@ import {
   EMAIL_NOT_VERIFIED_ERROR,
   INVALID_USERNAME_PASSWORD_ERROR,
   SOMETHING_WENT_WRONG_ERROR,
+  NO_USER_FOUND_ERROR,
 } from "@/utils/errors";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { EMAIL_NOT_VERIFIED, ERROR, INVALID_TOKEN_ERROR, SUCCESS, TOKEN_EXPIRED } from "@/utils/contants";
+import {
+  EMAIL_NOT_VERIFIED,
+  EMAIL_VALIDATION,
+  ERROR,
+  INVALID_TOKEN_ERROR,
+  SUCCESS,
+  TOKEN_EXPIRED,
+} from "@/utils/contants";
 import { v4 as uuidv4 } from "uuid";
+import { findUserByEmail, findUserById, setEmailVerified } from "@/actions/user";
+import mailer from "@/lib/mailer";
 
 type AuthReturnType = {
   type: string;
@@ -46,6 +56,9 @@ export async function signUp(data: authFormSchemaType): Promise<AuthReturnType> 
   if (!user) {
     return SOMETHING_WENT_WRONG_ERROR;
   }
+  //send verification mail
+  const verification = await upsertVerificationToken(user.email);
+  mailer(user.email, EMAIL_VALIDATION, verification.data?.token);
   return { type: SUCCESS, data: user };
 }
 
@@ -78,6 +91,8 @@ export async function logIn(data: authFormSchemaType): Promise<AuthReturnType> {
 }
 // Verification Tokens
 export async function upsertVerificationToken(email: string): Promise<AuthReturnType> {
+  const user = await findUserByEmail(email);
+  if (!user) return NO_USER_FOUND_ERROR;
   const uuidToken = uuidv4();
   const tokenExpires = new Date(new Date().getTime() + Number(process.env.VERIFICATION_TOKEN_EXPIRES));
   try {
@@ -127,6 +142,8 @@ export async function deleteVerificationToken(email: string) {
 
 // Rest Tokens
 export async function upsertResetToken(email: string): Promise<AuthReturnType> {
+  const user = await findUserByEmail(email);
+  if (!user) return NO_USER_FOUND_ERROR;
   const uuidToken = uuidv4();
   const tokenExpires = new Date(new Date().getTime() + Number(process.env.VERIFICATION_TOKEN_EXPIRES));
   try {
