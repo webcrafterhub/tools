@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,14 +10,26 @@ import {
 import ButtonDark from "./ButtonDark";
 import mailIcon from "@/assets/img/emailIcon.webp";
 import Image from "next/image";
+import { upsertVerificationToken } from "@/actions/auth";
+import { EMAIL_VALIDATION } from "@/utils/contants";
+import mailer from "@/lib/mailer";
 
 interface EmailVerificationModalProps {
   open: boolean;
   dialogHandler: () => void;
-  email?: string;
+  email: string;
 }
 
 const EmailVerificationModal: FC<EmailVerificationModalProps> = ({ open, dialogHandler, email }) => {
+  const [loading, setLoading] = useState(false);
+  const resendBtnHandler = async () => {
+    //send verification mail
+    setLoading(true);
+    const verification = await upsertVerificationToken(email);
+    mailer(email, EMAIL_VALIDATION, verification.data?.token);
+    setLoading(false);
+    dialogHandler();
+  };
   return (
     <Dialog open={open} onOpenChange={dialogHandler}>
       <DialogContent>
@@ -36,7 +48,7 @@ const EmailVerificationModal: FC<EmailVerificationModalProps> = ({ open, dialogH
           If you do not receive the email within the next 5 minutes, use the button below to resend verification email.
         </p>
         <DialogFooter>
-          <ButtonDark title="Resend Verification Email" loading={false} />
+          <ButtonDark onClick={resendBtnHandler} title="Resend Verification Email" loading={loading} />
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -6,14 +6,7 @@ import * as z from "zod";
 import backgroundImg from "@/assets/img/resetBackground.jpg";
 import ButtonDark from "@/components/ButtonDark";
 import { useRouter } from "next/navigation";
-import {
-  ERROR,
-  LOADING,
-  SUCCESS,
-  TOKEN,
-  TOKEN_NOT_FOUND,
-  VERIFICATION_SUCCESSFULL,
-} from "@/utils/contants";
+import { ERROR, LOADING, SUCCESS, TOKEN, TOKEN_NOT_FOUND, VERIFICATION_SUCCESSFULL } from "@/utils/contants";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { deleteResetToken, validateResetToken } from "@/actions/auth";
@@ -97,7 +90,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
 
   if (timer === 0) {
     clearInterval(intrvl.current);
-    router.push(loginRoute);
+    router.push("/");
   }
 
   return (
@@ -154,7 +147,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                         <>
                           <FormSuccess message="Password reset successful" />
                           <p className="text-sm pt-4 text-slate-400 text-center">
-                            You will be redirected to login in {timer} seconds
+                            You will be redirected in {timer} seconds
                           </p>
                         </>
                       )}
@@ -163,7 +156,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                         <>
                           <FormError message={VerificationStatus.data} />
                           <p className="text-sm pt-4 text-slate-400 text-center">
-                            You will be redirected to login in {timer} seconds
+                            You will be redirected in {timer} seconds
                           </p>
                         </>
                       )}
