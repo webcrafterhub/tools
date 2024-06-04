@@ -60,7 +60,7 @@ const UserVerification: FC<UserVerificationProps> = () => {
 
   if (timer == 0) {
     clearInterval(intrvl.current);
-    router.push(loginRoute);
+    router.push("/");
   }
 
   useEffect(() => {

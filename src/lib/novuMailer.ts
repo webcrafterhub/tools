@@ -20,7 +20,7 @@ async function novuMailer(toEmail: string, type: string, token?: string) {
           email: toEmail,
         },
         payload: {
-          resetLink: redirectLink,
+          confirmationLink: redirectLink,
         },
       });
       break;
