@@ -21,7 +21,6 @@ const generateRobotsTxt = () => {
   }
 
   const isDevelopment = process.env.NODE_ENV === "development";
-  console.log("hello", process.env, process.env.NODE_ENV === "development");
   const robotsContent = isDevelopment
     ? `User-agent: *
 Disallow: /`

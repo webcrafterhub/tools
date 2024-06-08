@@ -26,6 +26,7 @@ declare module "next-auth" {
 const prisma = new PrismaClient();
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   events: {
     async linkAccount({ user }) {
       await setEmailVerified(user.email!);
