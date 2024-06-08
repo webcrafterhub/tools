@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import AceEditor from "react-ace";
 import { config } from "ace-builds";
 import "ace-builds/src-noconflict/mode-json";

@@ -10,7 +10,6 @@ import FormError from "@/components/FormError";
 import FormSuccess from "@/components/FormSuccess";
 import { ERROR, LOADING, SUCCESS, TOKEN, TOKEN_NOT_FOUND, VERIFICATION_SUCCESSFULL } from "@/utils/contants";
 import { useRouter, useSearchParams } from "next/navigation";
-import { loginRoute } from "@/utils/routes";
 import { deleteVerificationToken, validateVerificationToken } from "@/actions/auth";
 import { setEmailVerified } from "@/actions/user";
 import { SOMETHING_WENT_WRONG_ERROR } from "@/utils/errors";

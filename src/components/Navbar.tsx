@@ -5,7 +5,6 @@ import useScroll from "@/components/hooks/useScroll";
 import ThemeSwitcher from "./ThemeSwitcher";
 import UserButton from "./UserButton";
 import { Session } from "next-auth";
-import { Button } from "./ui/button";
 import LoginModal from "./LoginModal";
 
 export default function NavBar({ session }: { session: Session | null }) {

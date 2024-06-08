@@ -1,5 +1,5 @@
 import { auth as middleware } from "@/auth";
-import { apiAuthRoutes, authRoutes, defaultLoginRedirect, publicRoutes, privateRoutes } from "./utils/routes";
+import { apiAuthRoutes, authRoutes, defaultLoginRedirect, privateRoutes } from "./utils/routes";
 
 export default middleware((req) => {
   const { nextUrl } = req;

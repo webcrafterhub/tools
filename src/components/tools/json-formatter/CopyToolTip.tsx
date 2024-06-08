@@ -4,7 +4,6 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Button } from "../../ui/button";
 import { FaRegCopy } from "react-icons/fa6";
 import { FaCopy } from "react-icons/fa";
-import { MdDone } from "react-icons/md";
 
 interface CopyToolTipProps {
   disabled?: boolean | number;

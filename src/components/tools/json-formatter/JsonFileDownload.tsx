@@ -3,7 +3,6 @@ import { saveAs } from "file-saver";
 import { Parser } from "@json2csv/plainjs";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,

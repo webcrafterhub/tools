@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import ButtonBlue from "./ButtonBlue";
 // import useLoginUser from '@/hooks/useLoginUser';
 import { toast } from "./ui/use-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { EMAIL_NOT_VERIFIED, EMAIL_VALIDATION, EMAIL_VERIFICATION, ERROR, LOADING } from "@/utils/contants";
 import ForgotPassword from "./ForgotPassword";
 import { logIn, upsertVerificationToken } from "@/actions/auth";
