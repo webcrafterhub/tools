@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node src/utils/generateRobotsTxt.mjs && next build",
+    "build": "node src/utils/generateRobotTxt.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "lintFix": "next lint --fix",
