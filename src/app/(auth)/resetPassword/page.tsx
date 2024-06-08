@@ -13,7 +13,6 @@ import { deleteResetToken, validateResetToken } from "@/actions/auth";
 import { SOMETHING_WENT_WRONG_ERROR } from "@/utils/errors";
 import { updateUserPassword } from "@/actions/user";
 import FormSuccess from "@/components/FormSuccess";
-import { loginRoute } from "@/utils/routes";
 import FormError from "@/components/FormError";
 interface pageProps {}
 

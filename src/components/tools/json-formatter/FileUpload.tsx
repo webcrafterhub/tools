@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
 import UploadIcon from "@/assets/svg/uploadIcon";
 import { useDropzone } from "react-dropzone";

@@ -7,8 +7,7 @@ import "react18-json-view/src/dark.css";
 import LoadingGear from "@/assets/svg/loadingGear";
 import jsonErrorImg from "@/assets/svg/jsonError.svg";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AceJSONEditor from "./AceJSONEditor";
 import FileUpload from "./FileUpload";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
@@ -155,10 +154,10 @@ function JSONFormatter() {
                         The JSON provided is invalid. Please review and correct it.
                       </span>
                       <ul>
-                        {validationErrors.map((error) => (
-                          <li className="text-center text-red-400">{`Error at line ${error.row + 1}, column ${
-                            error.column + 1
-                          }: ${error.text}`}</li>
+                        {validationErrors.map((error, indx) => (
+                          <li key={indx} className="text-center text-red-400">{`Error at line ${
+                            error.row + 1
+                          }, column ${error.column + 1}: ${error.text}`}</li>
                         ))}
                       </ul>
                     </div>

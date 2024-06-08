@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 
 export default async function Nav() {
   const session = await auth();

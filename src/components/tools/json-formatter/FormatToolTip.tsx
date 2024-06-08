@@ -2,8 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "../../ui/button";
-import { GiStarFormation } from "react-icons/gi";
-import { MdDone } from "react-icons/md";
 import { PiShootingStar } from "react-icons/pi";
 import { PiShootingStarFill } from "react-icons/pi";
 

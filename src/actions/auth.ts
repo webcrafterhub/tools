@@ -22,7 +22,7 @@ import {
   TOKEN_EXPIRED,
 } from "@/utils/contants";
 import { v4 as uuidv4 } from "uuid";
-import { findUserByEmail, findUserById, setEmailVerified } from "@/actions/user";
+import { findUserByEmail } from "@/actions/user";
 import mailer from "@/lib/mailer";
 
 type AuthReturnType = {

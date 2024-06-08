@@ -8,7 +8,6 @@ import Link from "next/link";
 import ButtonDark from "./ButtonDark";
 // import useRegisterUser from '@/hooks/useRegisterUser';
 import { toast } from "./ui/use-toast";
-import { EMAIL_VERIFICATION } from "@/utils/contants";
 import { signUp } from "@/actions/auth";
 import { useServerAction } from "./hooks/useServerAction";
 import EmailVerificationModal from "./EmailVerificationModal";
