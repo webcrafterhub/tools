@@ -11,8 +11,8 @@ import Nav from "@/components/nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ebat | Sign in",
-  description: "Sign in form",
+  title: "WCH",
+  description: "Explore our collection and discover efficient, user-friendly solutions for all your digital needs.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
