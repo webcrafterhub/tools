@@ -6,6 +6,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import UserButton from "./UserButton";
 import { Session } from "next-auth";
 import LoginModal from "./LoginModal";
+import logo from "@/assets/img/logo.webp";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const scrolled = useScroll(50);
@@ -21,7 +22,7 @@ export default function NavBar({ session }: { session: Session | null }) {
       >
         <div className="flex items-center justify-between w-full h-16 max-w-screen-xl mx-5">
           <Link href="/" className="flex items-center text-2xl font-display">
-            <Image src="/logo.png" alt="Precedent logo" width="30" height="30" className="mr-2 rounded-sm"></Image>
+            <Image src={logo} alt="Precedent logo" width="30" height="30" className="mr-2 rounded-sm"></Image>
             {/* <p>Precedent</p> */}
           </Link>
           <div className="flex gap-4">
