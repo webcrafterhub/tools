@@ -11,8 +11,30 @@ import Nav from "@/components/nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "WCH",
-  description: "Explore our collection and discover efficient, user-friendly solutions for all your digital needs.",
+  title: "WebCrafterHub - Essential Tools for Daily Life",
+  description:
+    "Explore our collection and discover efficient, user-friendly solutions for all your digital needs. From JSON formatting to PDF compression, WebCrafterHub provides essential tools for daily life.",
+  generator: "Next.js",
+  applicationName: "WebCrafterHub",
+  referrer: "origin-when-cross-origin",
+  keywords: [
+    "WebCrafterHub",
+    "JSON Formatter",
+    "PDF Compressor",
+    "Online Tools",
+    "Data Conversion",
+    "JSON Converter",
+    "JSON Editor",
+    "JSON Prettifier",
+  ],
+  authors: [{ name: "Pranav M" }, { name: "WebCrafterHub Team", url: "https://webcrafterhub.com" }],
+  creator: "Pranav M",
+  publisher: "WebCrafterHub",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
