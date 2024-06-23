@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { saveAs } from "file-saver";
-import { Parser } from "@json2csv/plainjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,10 +10,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { BsFiletypeJson, BsFiletypeTxt } from "react-icons/bs";
+import { BsFiletypeTxt } from "react-icons/bs";
 import { TbFileDownload } from "react-icons/tb";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { BsFiletypeCsv } from "react-icons/bs";
 
 interface Base64FileDownloadProps {
   content: string;
