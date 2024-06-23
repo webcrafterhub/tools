@@ -59,7 +59,7 @@ const UserButton: FC<UserButtonProps> = ({ session }) => {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <User className="w-4 h-4 mr-2" />
               <span>Profile</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -78,7 +78,7 @@ const UserButton: FC<UserButtonProps> = ({ session }) => {
               <LifeBuoy className="w-4 h-4 mr-2" />
               <span>Support</span>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={() => signOut()}>
               <LogOut className="w-4 h-4 mr-2" />
               <Button className="h-0" variant="ghost">
