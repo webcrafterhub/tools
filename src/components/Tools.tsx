@@ -25,13 +25,13 @@ const Tools: FC<ToolsProps> = ({}) => {
         <ToolBoxButton
           logo={<LuBookLock className="text-5xl" />}
           heading="Base64 Encoder"
-          subHeading="Base64 Encoding, URL-safe encoding, uploading files, copy-paste, different character sets, file download "
+          subHeading="Base64 Encoding, URL-safe encoding, source character sets, file upload & download "
           redirectUrl="/base64-encoder"
         />
         <ToolBoxButton
-          logo={<PiFileCloudBold className="text-5xl" />}
+          logo={<PiFileCloudBold className="text-4xl" />}
           heading="Base64 Decoder"
-          subHeading="Base64 Decoding , uploading files, copy-paste, different character sets, file download "
+          subHeading="Base64 Decoding, source character sets, file upload & download "
           redirectUrl="/base64-decoder"
         />
         <ToolBoxButton
