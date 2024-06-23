@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "./ui/button";
-import { FaRegCopy } from "react-icons/fa6";
 import { GrClearOption } from "react-icons/gr";
 import { AiOutlineClear } from "react-icons/ai";
 

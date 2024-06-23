@@ -1,4 +1,3 @@
-import JSONFormatter from "@/components/tools/json-formatter/JSONFormatter";
 import React, { FC } from "react";
 import { Metadata } from "next";
 import Base64Encoder from "@/components/tools/base64Convertor/Base64Encoder";

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import JsonView from "react18-json-view";
 import "react18-json-view/src/style.css";
 // If dark mode is needed, import `dark.css`.
 import "react18-json-view/src/dark.css";
@@ -16,7 +15,6 @@ import Image from "next/image";
 import Base64FileDownload from "./Base64FileDownload";
 import AceBase64Editor from "./AceBase64Editor";
 import { Base64 } from "js-base64";
-import EncodingOptions from "./EncodingOptions";
 import iconv from "iconv-lite";
 import DecodingOptions from "./DecodingOptions";
 import ClearToolTip from "@/components/ClearToolTip";
