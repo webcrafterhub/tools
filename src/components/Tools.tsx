@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import ToolBoxButton from "./ToolBoxButton";
-import { BiSolidFileJson } from "react-icons/bi";
+import { BsFiletypeJson } from "react-icons/bs";
+import { LuBookLock } from "react-icons/lu";
+import { PiFileCloudBold } from "react-icons/pi";
 
 interface ToolsProps {}
 
@@ -15,10 +17,29 @@ const Tools: FC<ToolsProps> = ({}) => {
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
         <ToolBoxButton
-          logo={<BiSolidFileJson className="text-5xl" />}
+          logo={<BsFiletypeJson className="text-5xl" />}
           heading="Json Fromatter"
           subHeading="JSON Formatting, Editing, Conversion, and Prettifying"
           redirectUrl="/json-formatter"
+        />
+        <ToolBoxButton
+          logo={<LuBookLock className="text-5xl" />}
+          heading="Base64 Encoder"
+          subHeading="Base64 Encoding, URL-safe encoding, uploading files, copy-paste, different character sets, file download "
+          redirectUrl="/base64-encoder"
+        />
+        <ToolBoxButton
+          logo={<PiFileCloudBold className="text-5xl" />}
+          heading="Base64 Decoder"
+          subHeading="Base64 Decoding , uploading files, copy-paste, different character sets, file download "
+          redirectUrl="/base64-decoder"
+        />
+        <ToolBoxButton
+          className="bg-gray-100 dark:bg-black opacity-80"
+          logo=""
+          heading="Coming Soon"
+          subHeading="Exciting Developments Await: Coming Soon!"
+          redirectUrl="/"
         />
         <ToolBoxButton
           className="bg-gray-100 dark:bg-black opacity-80"
