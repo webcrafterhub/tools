@@ -1,23 +1,23 @@
-import JSONFormatter from "@/components/tools/json-formatter/JSONFormatter";
 import React, { FC } from "react";
 import { Metadata } from "next";
+import Base64Encoder from "@/components/tools/base64Convertor/Base64Encoder";
 
 export const metadata: Metadata = {
-  title: "JSON Formatter",
+  title: "Base64 Encoder",
   description:
-    "JSON Formatter to easily format, edit, and convert your JSON data. Perfect for developers and data analysts.",
+    "Base64 Encoder to easily encode your data. Supports uploading files, copy-paste, different character sets, file download and URL-safe encoding.",
   generator: "Next.js",
   applicationName: "WebCrafterHub",
   referrer: "origin-when-cross-origin",
   keywords: [
-    "JSON Formatter",
-    "JSON Converter",
-    "JSON Editor",
-    "JSON Prettifier",
-    "WebCrafterHub",
+    "Base64 Encoder",
+    "Data Encoding",
+    "File Encoding",
+    "URL-safe Encoding",
     "Online Tools",
+    "WebCrafterHub",
     "Data Conversion",
-    "json",
+    "Base64",
   ],
   authors: [{ name: "Pranav M" }, { name: "WebCrafterHub Team", url: "https://webcrafterhub.com" }],
   creator: "Pranav M",
@@ -34,7 +34,7 @@ interface pageProps {}
 const page: FC<pageProps> = ({}) => {
   return (
     <div className="">
-      <JSONFormatter />
+      <Base64Encoder />
     </div>
   );
 };
