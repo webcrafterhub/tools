@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Twitter from "@/components/icons/Twitter";
+import Twitter from "@/assets/svg/Twitter";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

@@ -8,99 +8,62 @@ import LoadingGear from "@/assets/svg/loadingGear";
 import jsonErrorImg from "@/assets/svg/jsonError.svg";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import AceJSONEditor from "./AceJSONEditor";
 import FileUpload from "./FileUpload";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import useDeviceType from "@/components/hooks/useDeviceType";
 import CopyToolTip from "@/components/tools/json-formatter/CopyToolTip";
 import Image from "next/image";
-import FormatToolTip from "./FormatToolTip";
-import JsonFileDownload from "./JsonFileDownload";
-import ClearToolTip from "../../ClearToolTip";
-
+import Base64FileDownload from "./Base64FileDownload";
+import AceBase64Editor from "./AceBase64Editor";
+import { Base64 } from "js-base64";
+import EncodingOptions from "./EncodingOptions";
+import iconv from "iconv-lite";
+import DecodingOptions from "./DecodingOptions";
+import ClearToolTip from "@/components/ClearToolTip";
 interface Annotation {
-  row: number;
-  column: number;
+  row?: number;
+  column?: number;
   text: string;
-  type: string;
+  type?: string;
 }
 
-const JSON_DUMMY_DATA = {
-  id: 1,
-  name: "John Doe",
-  email: "john.doe@example.com",
-  age: 30,
-  address: {
-    street: "123 Main St",
-    city: "Anytown",
-  },
-  roles: ["user", "admin"],
+const defaultEncodingOptions = {
+  characterSet: "utf-8",
 };
-
-function JSONFormatter() {
-  const [jsonObj, setJsonObj] = useState<object>(JSON_DUMMY_DATA);
-  const [jsonStr, setJsonStr] = useState(JSON.stringify(JSON_DUMMY_DATA, null, 2));
+function Base64Decoder() {
+  const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationError] = useState<Annotation[]>([]);
+  const [decodedStr, setdecodedStr] = useState<string>("");
   const deviceType = useDeviceType();
+  const [decodingOptions, setDecodingOptions] = useState(defaultEncodingOptions);
 
   useEffect(() => {
-    try {
-      setJsonObj(JSON.parse(jsonStr));
-    } catch (error) {
-      setJsonObj({});
-    }
-  }, [jsonStr]);
-
-  function cleanJson(jsonString: string) {
-    try {
-      // Try parsing the JSON to ensure it's valid
-      JSON.parse(jsonString);
-      return jsonString;
-    } catch (e) {
-      // Remove quotes around the entire JSON object
-      let cleanedJsonString = jsonString.replace(/^"([\s\S]*)"$/, "$1");
-
-      // If parsing fails, attempt to clean the JSON string
-
-      // Remove any trailing commas inside objects or arrays
-      cleanedJsonString = jsonString.replace(/,\s*([\]}])/g, "$1");
-
-      // Fix common JSON typos: missing quotes around keys
-      cleanedJsonString = cleanedJsonString.replace(/([{,]\s*)([a-zA-Z_][\w\s]*)(\s*:)/g, '$1"$2"$3');
-
-      return cleanedJsonString;
-    }
-  }
+    decodeToBase64(content);
+  }, [decodingOptions]);
 
   function validationHandler(errors: Annotation[]) {
     setValidationError(errors);
   }
 
-  function AceInitialLoadHandler(text: string, event?: any) {
+  function AceChangeHandler(encodedStr: string) {
     try {
-      const cleanedJson = cleanJson(text);
-      const parsedJson = JSON.parse(cleanedJson);
-      const formattedJsonStr = JSON.stringify(parsedJson, null, 2);
-
-      setJsonStr(formattedJsonStr);
+      setContent(encodedStr);
+      decodeToBase64(encodedStr);
+    } catch (error) {}
+  }
+  function decodeToBase64(encodedStr: string) {
+    try {
+      const decodedArray = Base64.toUint8Array(encodedStr);
+      const decodedString = iconv.decode(Buffer.from(decodedArray), decodingOptions.characterSet);
+      setdecodedStr(decodedString);
     } catch (error) {
-      // pass, user is editing
-      setJsonStr(text);
+      setValidationError((prev) => [...prev, { text: "Invalid base64 string" }]);
     }
   }
-  function AceChangeHandler(text: string, event: any) {
-    try {
-      setJsonStr(text);
-    } catch (error) {
-      // pass, user is editing
-      setJsonStr(text);
-    }
-  }
-
   return (
     <div className="container min-h-screen flex flex-col gap-4 justify-center">
-      <FileUpload setJsonStr={AceInitialLoadHandler} loadingHandler={setLoading} />
+      <FileUpload setContent={AceChangeHandler} loadingHandler={setLoading} />
       <ResizablePanelGroup
         direction={deviceType === "mobile" ? "vertical" : "horizontal"}
         className="codebox md:min-h-[50vh] min-h-[100vh] md:max-h-[70vh] "
@@ -112,22 +75,22 @@ function JSONFormatter() {
               <>
                 <CardHeader className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
-                    <CardTitle>JSON EDITOR</CardTitle>
-                    <CardDescription>Copy and paste your JSON here</CardDescription>
+                    <CardTitle>BASE64 EDITOR</CardTitle>
+                    <CardDescription>Copy and paste your Base64 data here</CardDescription>
                   </div>
                   <div className="flex gap-2">
-                    <ClearToolTip clearHandler={() => setJsonStr("")} disabled={loading || validationErrors.length} />
-                    <FormatToolTip
-                      format={() => AceInitialLoadHandler(jsonStr)}
+                    <ClearToolTip
+                      clearHandler={() => AceChangeHandler("")}
                       disabled={loading || validationErrors.length}
                     />
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <AceJSONEditor
-                    value={jsonStr}
+                  <AceBase64Editor
+                    value={content}
                     changeHandler={AceChangeHandler}
                     validationHandler={validationHandler}
+                    placeholder="Paste or type your content here"
                     focus={true}
                   />
                 </CardContent>
@@ -143,32 +106,30 @@ function JSONFormatter() {
               <>
                 <CardHeader className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
-                    <CardTitle>JSON VIEWER</CardTitle>
-                    <CardDescription>View JSON in structured format</CardDescription>
+                    <CardTitle>DECODED DATA</CardTitle>
+                    <CardDescription>View your Base64 decoded data here</CardDescription>
                   </div>
-                  <CopyToolTip data={jsonStr} disabled={loading || validationErrors.length} />
+                  <CopyToolTip data={decodedStr} disabled={loading || validationErrors.length} />
                 </CardHeader>
                 {validationErrors.length ? (
                   <div className="flex justify-center items-center flex-1">
                     <div className="flex flex-col gap-4  justify-center items-center">
                       <Image width={150} height={150} src={jsonErrorImg} alt="json-error" />
                       <span className="font-semibold text-center text-gray-600 dark:text-gray-300">
-                        The JSON provided is invalid. Please review and correct it.
+                        The Data provided is invalid. Please review and correct it.
                       </span>
-                      <ul>
-                        {validationErrors.map((error, indx) => (
-                          <li key={indx} className="text-center text-red-400">{`Error at line ${
-                            error.row + 1
-                          }, column ${error.column + 1}: ${error.text}`}</li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
                 ) : (
                   <CardContent className="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-green-400 scrollbar-track-slate-300">
-                    <JsonView src={jsonObj} />
+                    <AceBase64Editor
+                      value={decodedStr}
+                      changeHandler={AceChangeHandler}
+                      validationHandler={validationHandler}
+                      readOnly={true}
+                    />
                     <div className="absolute right-0 bottom-0 p-4 z-50">
-                      <JsonFileDownload jsonObj={jsonObj} />
+                      <Base64FileDownload content={decodedStr} />
                     </div>
                   </CardContent>
                 )}
@@ -177,8 +138,9 @@ function JSONFormatter() {
           </Card>
         </ResizablePanel>
       </ResizablePanelGroup>
+      <DecodingOptions setDecodingOptions={setDecodingOptions} />
     </div>
   );
 }
 
-export default JSONFormatter;
+export default Base64Decoder;
