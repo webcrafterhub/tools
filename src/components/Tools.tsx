@@ -3,6 +3,8 @@ import ToolBoxButton from "./ToolBoxButton";
 import { BsFiletypeJson } from "react-icons/bs";
 import { LuBookLock } from "react-icons/lu";
 import { PiFileCloudBold } from "react-icons/pi";
+import JWTIcon from "@/assets/img/jwt-icon.ico";
+import Image from "next/image";
 
 interface ToolsProps {}
 
@@ -35,11 +37,10 @@ const Tools: FC<ToolsProps> = ({}) => {
           redirectUrl="/base64-decoder"
         />
         <ToolBoxButton
-          className="bg-gray-100 dark:bg-black opacity-80"
-          logo=""
-          heading="Coming Soon"
-          subHeading="Exciting Developments Await: Coming Soon!"
-          redirectUrl="/"
+          logo={<Image src={JWTIcon} width={50} height={50} alt="jwt icon" />}
+          heading="JWT Decoder"
+          subHeading="JWT Decoder, JWT Editor, JWT Verification and JWT Generator"
+          redirectUrl="/jwt-decoder"
         />
         <ToolBoxButton
           className="bg-gray-100 dark:bg-black opacity-80"
