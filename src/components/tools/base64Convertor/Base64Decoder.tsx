@@ -7,7 +7,7 @@ import LoadingGear from "@/assets/svg/loadingGear";
 import jsonErrorImg from "@/assets/svg/jsonError.svg";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import FileUpload from "./FileUpload";
+import FileUpload from "../../FileUpload";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import useDeviceType from "@/components/hooks/useDeviceType";
 import CopyToolTip from "@/components/tools/json-formatter/CopyToolTip";
@@ -77,10 +77,7 @@ function Base64Decoder() {
                     <CardDescription>Copy and paste your Base64 data here</CardDescription>
                   </div>
                   <div className="flex gap-2">
-                    <ClearToolTip
-                      clearHandler={() => AceChangeHandler("")}
-                      disabled={loading || validationErrors.length}
-                    />
+                    <ClearToolTip clearHandler={() => AceChangeHandler("")} disabled={loading} />
                   </div>
                 </CardHeader>
                 <CardContent>
