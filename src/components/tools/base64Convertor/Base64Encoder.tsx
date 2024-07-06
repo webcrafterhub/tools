@@ -7,7 +7,7 @@ import LoadingGear from "@/assets/svg/loadingGear";
 import jsonErrorImg from "@/assets/svg/jsonError.svg";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import FileUpload from "./FileUpload";
+import FileUpload from "../../FileUpload";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import useDeviceType from "@/components/hooks/useDeviceType";
 import CopyToolTip from "@/components/tools/json-formatter/CopyToolTip";
@@ -112,7 +112,7 @@ function Base64Encoder() {
                     <CardTitle>BASE64 ENCODED</CardTitle>
                     <CardDescription>View your Base64 encoded data here</CardDescription>
                   </div>
-                  <CopyToolTip data={encodedStr} disabled={loading || validationErrors.length} />
+                  <CopyToolTip data={encodedStr} disabled={loading} />
                 </CardHeader>
                 {validationErrors.length ? (
                   <div className="flex justify-center items-center flex-1">

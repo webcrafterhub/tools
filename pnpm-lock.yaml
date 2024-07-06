@@ -167,6 +167,12 @@ dependencies:
   js-base64:
     specifier: ^3.7.7
     version: 3.7.7
+  jwt-js-decode:
+    specifier: ^1.9.0
+    version: 1.9.0
+  jwt-simple:
+    specifier: ^0.5.6
+    version: 0.5.6
   lucide-react:
     specifier: ^0.294.0
     version: 0.294.0(react@18.2.0)
@@ -4064,6 +4070,18 @@ packages:
       setimmediate: 1.0.5
     dev: false
 
+  /jwt-js-decode@1.9.0:
+    resolution: {integrity: sha512-23e4OUMBrLtIrVA8g7S7pHWzzeIeOJaEm3Tjy+z5GmHsrws/5binX0xe1VJZxWDNqOQN1RrpV4SEt++mJmxzZA==}
+    engines: {node: '>=15.0.0'}
+    dependencies:
+      pako: 2.1.0
+    dev: false
+
+  /jwt-simple@0.5.6:
+    resolution: {integrity: sha512-40aUybvhH9t2h71ncA1/1SbtTNCVZHgsTsTgqPUxGWDmUDrXyDf2wMNQKEbdBjbf4AI+fQhbECNTV6lWxQKUzg==}
+    engines: {node: '>= 0.4.0'}
+    dev: false
+
   /keyv@4.5.3:
     resolution: {integrity: sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==}
     dependencies:
@@ -4461,6 +4479,10 @@ packages:
 
   /pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
+    dev: false
+
+  /pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
     dev: false
 
   /parent-module@1.0.1:
