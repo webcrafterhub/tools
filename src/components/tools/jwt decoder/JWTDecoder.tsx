@@ -39,19 +39,23 @@ type decodedJWTType = {
 const defaultEncodingOptions = {
   characterSet: "utf-8",
 };
-
+const INITIAL_DATA = {
+  secret: "Paste-your-secret-here",
+  jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.aKdU9ahRQAtimM6QfM46QSlm-r1s3eNY4RO-eKFAYAY",
+};
 function JWTDecoder() {
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<string>(INITIAL_DATA.jwt);
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationError] = useState<string | null>("");
   const [decodedJWT, setDecodedJWT] = useState<decodedJWTType>({});
   const [signatureVerified, setSignatureVerified] = useState<boolean>(false);
   const [decodedDisabled, setDecodedDisabled] = useState<boolean>(true);
-  const [secret, setSecret] = useState<string>("mm");
+  const [secret, setSecret] = useState<string>(INITIAL_DATA.secret);
   const deviceType = useDeviceType();
 
   useEffect(() => {
     decodeJWT(content);
+    handleSecretChange(secret);
   }, [content]);
 
   const handleHeaderChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -87,8 +91,14 @@ function JWTDecoder() {
     });
   };
 
-  const handleSecretChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSecret(e.target.value);
+  const handleSecretChange = async (newSecreat: string) => {
+    try {
+      const verificationStatus = await verify(content, newSecreat);
+      setSignatureVerified(verificationStatus);
+    } catch (error) {
+      setSignatureVerified(false);
+    }
+    setSecret(newSecreat);
   };
 
   const updateJwtToken = (decodedJWT: decodedJWTType) => {
@@ -208,6 +218,8 @@ function JWTDecoder() {
             type="text"
             id="token"
             placeholder="Paste your key here"
+            onChange={(e) => handleSecretChange(e.target.value)}
+            value={secret}
           />
         </div>
         {signatureVerified ? (
@@ -222,7 +234,6 @@ function JWTDecoder() {
           </div>
         )}
       </div>
-      {/* <DecodingOptions setDecodingOptions={setDecodingOptions} /> */}
     </div>
   );
 }
