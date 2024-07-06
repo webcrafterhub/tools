@@ -1,6 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import React, { FC, ChangeEventHandler, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 
 interface DecodedTextBoxProps {
   value: string;
