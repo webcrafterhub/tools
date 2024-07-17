@@ -25,28 +25,36 @@ We welcome contributions from everyone. Here’s how you can contribute to our o
    ```
    git clone https://github.com/your-username/coming_soon.git
    ```
+3. **Rename `.envlocal` to `.env` and Install Dependencies**:
 
-3. **Create a Branch**: Create a new branch for your feature or bug fix:
+   Rename the `.envlocal` file to `.env` and set all required environment variables. Then, install the project dependencies using:
+
+   ```
+   pnpm install
+   ```
+
+
+4. **Create a Branch**: Create a new branch for your feature or bug fix:
 
    ```
    git checkout -b feature-or-bugfix-name
    ```
 
-4. **Make Your Changes**: Make your changes in the codebase. Ensure that your changes follow the project's coding standards.
+5. **Make Your Changes**: Make your changes in the codebase. Ensure that your changes follow the project's coding standards.
 
-5. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message:
+6. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message:
 
    ```sh
    git commit -m "Description of the feature or bug fix"
    ```
 
-6. **Push to GitHub**: Push your changes to your forked repository:
+7. **Push to GitHub**: Push your changes to your forked repository:
 
    ```sh
    git push origin feature-or-bugfix-name
    ```
 
-7. **Create a Pull Request**: Go to the original repository and click on "New Pull Request". Raise the PR to the `develop` branch. Provide a description of your changes and submit the pull request for review.
+8. **Create a Pull Request**: Go to the original repository and click on "New Pull Request". Raise the PR to the `develop` branch. Provide a description of your changes and submit the pull request for review.
 
    Once your PR is merged into the `develop` branch, it will be deployed to [https://dev.webcrafterhub.com](https://dev.webcrafterhub.com) for validation. After successful validation, the `develop` branch will be merged into the `main` branch.
 
