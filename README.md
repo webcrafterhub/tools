@@ -32,7 +32,7 @@ We welcome contributions from everyone. Here’s how you can contribute to our o
 2. **Clone Your Fork**: Clone your forked repository to your local machine using the command:
 
    ```
-   git clone https://github.com/your-username/coming_soon.git
+   git clone https://github.com/webcrafterhub/tools.git
    ```
 3. **Rename `.envlocal` to `.env` and Install Dependencies**:
 
