@@ -6,9 +6,18 @@ Welcome to **WebCrafterHub**! Your one-stop destination for essential tools to m
 
 ## 🚀 Features
 
-- **JSON Converter**: Easily convert your JSON data to various formats.
-- **PDF Compressor**: Reduce the size of your PDFs without compromising quality.
-- **Utilities**: A collection of various tools to help you with everyday tasks.
+- **[JSON Formatter](https://webcrafterhub.com/json-formatter)**: JSON Formatting, Editing, Conversion, And Prettifying
+  - Easily format and edit your JSON data. Convert JSON to different formats, or simply make it more readable and organized.
+
+- **[Base64 Encoder](https://webcrafterhub.com/base64-encoder)**: Base64 Encoding, URL-Safe Encoding, Source Character Sets, File Upload & Download
+  - Encode your data to Base64 format, including options for URL-safe encoding. Supports various source character sets and file upload/download features.
+
+- **[Base64 Decoder](https://webcrafterhub.com/base64-decoder)**: Base64 Decoding, Source Character Sets, File Upload & Download
+  - Decode Base64 encoded data. Supports multiple source character sets and includes file upload and download options.
+
+- **[JWT Decoder](https://webcrafterhub.com/jwt-decoder)**: JWT Decoder, JWT Editor, JWT Verification And JWT Generator
+  - Decode, edit, and verify JWT tokens. Generate new JWTs and explore the claims and structure of existing ones.
+
 
 ## 🛠️ Upcoming Release
 
