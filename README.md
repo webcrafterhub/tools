@@ -27,7 +27,7 @@ We are cooking up some exciting new tools and features for you!. Stay tuned for 
 
 We welcome contributions from everyone. Here’s how you can contribute to our open-source project:
 
-1. **Fork the Repository**: Go to our [GitHub repository](https://github.com/webcrafterhub/coming_soon) and click the "Fork" button at the top right corner. This will create a copy of the repository in your GitHub account.
+1. **Fork the Repository**: Go to our [GitHub repository](https://github.com/webcrafterhub/tools) and click the "Fork" button at the top right corner. This will create a copy of the repository in your GitHub account.
 
 2. **Clone Your Fork**: Clone your forked repository to your local machine using the command:
 
