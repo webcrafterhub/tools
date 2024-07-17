@@ -14,7 +14,6 @@ Welcome to **WebCrafterHub**! Your one-stop destination for essential tools to m
 
 We are cooking up some exciting new tools and features for you!. Stay tuned for updates on what’s coming next!
 
-
 ## 💻 Contributing
 
 We welcome contributions from everyone. Here’s how you can contribute to our open-source project:
@@ -22,11 +21,13 @@ We welcome contributions from everyone. Here’s how you can contribute to our o
 1. **Fork the Repository**: Go to our [GitHub repository](https://github.com/webcrafterhub/coming_soon) and click the "Fork" button at the top right corner. This will create a copy of the repository in your GitHub account.
 
 2. **Clone Your Fork**: Clone your forked repository to your local machine using the command:
+
    ```
    git clone https://github.com/your-username/coming_soon.git
    ```
 
 3. **Create a Branch**: Create a new branch for your feature or bug fix:
+
    ```
    git checkout -b feature-or-bugfix-name
    ```
@@ -34,11 +35,13 @@ We welcome contributions from everyone. Here’s how you can contribute to our o
 4. **Make Your Changes**: Make your changes in the codebase. Ensure that your changes follow the project's coding standards.
 
 5. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message:
+
    ```sh
    git commit -m "Description of the feature or bug fix"
    ```
 
 6. **Push to GitHub**: Push your changes to your forked repository:
+
    ```sh
    git push origin feature-or-bugfix-name
    ```
@@ -57,7 +60,6 @@ This project will be licensed under the MIT License.
 
 - **Website**: [webcrafterhub.com](https://webcrafterhub.com)
 - **GitHub**: [github.com/webcrafterhub/coming_soon](https://github.com/webcrafterhub/tools)
-
 
 ---
 

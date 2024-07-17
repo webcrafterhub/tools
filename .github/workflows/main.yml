@@ -1,4 +1,4 @@
-name: EBAT Code Reviewer
+name: WCH Code Reviewer
 
 on:
   pull_request:
