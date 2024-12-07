@@ -1,4 +1,4 @@
-# WebCrafterHub
+# Web Crafter Hub
 
 Welcome to **WebCrafterHub**! Your one-stop destination for essential tools to make your daily life easier. Whether you need to convert JSON, compress PDFs, or use other handy utilities, we've got you covered.
 
@@ -6,9 +6,18 @@ Welcome to **WebCrafterHub**! Your one-stop destination for essential tools to m
 
 ## 🚀 Features
 
-- **JSON Converter**: Easily convert your JSON data to various formats.
-- **PDF Compressor**: Reduce the size of your PDFs without compromising quality.
-- **Utilities**: A collection of various tools to help you with everyday tasks.
+- **[JSON Formatter](https://webcrafterhub.com/json-formatter)**: JSON Formatting, Editing, Conversion, And Prettifying
+  - Easily format and edit your JSON data. Convert JSON to different formats, or simply make it more readable and organized.
+
+- **[Base64 Encoder](https://webcrafterhub.com/base64-encoder)**: Base64 Encoding, URL-Safe Encoding, Source Character Sets, File Upload & Download
+  - Encode your data to Base64 format, including options for URL-safe encoding. Supports various source character sets and file upload/download features.
+
+- **[Base64 Decoder](https://webcrafterhub.com/base64-decoder)**: Base64 Decoding, Source Character Sets, File Upload & Download
+  - Decode Base64 encoded data. Supports multiple source character sets and includes file upload and download options.
+
+- **[JWT Decoder](https://webcrafterhub.com/jwt-decoder)**: JWT Decoder, JWT Editor, JWT Verification And JWT Generator
+  - Decode, edit, and verify JWT tokens. Generate new JWTs and explore the claims and structure of existing ones.
+
 
 ## 🛠️ Upcoming Release
 
@@ -18,35 +27,43 @@ We are cooking up some exciting new tools and features for you!. Stay tuned for 
 
 We welcome contributions from everyone. Here’s how you can contribute to our open-source project:
 
-1. **Fork the Repository**: Go to our [GitHub repository](https://github.com/webcrafterhub/coming_soon) and click the "Fork" button at the top right corner. This will create a copy of the repository in your GitHub account.
+1. **Fork the Repository**: Go to our [GitHub repository](https://github.com/webcrafterhub/tools) and click the "Fork" button at the top right corner. This will create a copy of the repository in your GitHub account.
 
 2. **Clone Your Fork**: Clone your forked repository to your local machine using the command:
 
    ```
-   git clone https://github.com/your-username/coming_soon.git
+   git clone https://github.com/webcrafterhub/tools.git
+   ```
+3. **Rename `.envlocal` to `.env` and Install Dependencies**:
+
+   Rename the `.envlocal` file to `.env` and set all required environment variables. Then, install the project dependencies using:
+
+   ```
+   pnpm install
    ```
 
-3. **Create a Branch**: Create a new branch for your feature or bug fix:
+
+4. **Create a Branch**: Create a new branch for your feature or bug fix:
 
    ```
    git checkout -b feature-or-bugfix-name
    ```
 
-4. **Make Your Changes**: Make your changes in the codebase. Ensure that your changes follow the project's coding standards.
+5. **Make Your Changes**: Make your changes in the codebase. Ensure that your changes follow the project's coding standards.
 
-5. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message:
+6. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message:
 
    ```sh
    git commit -m "Description of the feature or bug fix"
    ```
 
-6. **Push to GitHub**: Push your changes to your forked repository:
+7. **Push to GitHub**: Push your changes to your forked repository:
 
    ```sh
    git push origin feature-or-bugfix-name
    ```
 
-7. **Create a Pull Request**: Go to the original repository and click on "New Pull Request". Raise the PR to the `develop` branch. Provide a description of your changes and submit the pull request for review.
+8. **Create a Pull Request**: Go to the original repository and click on "New Pull Request". Raise the PR to the `develop` branch. Provide a description of your changes and submit the pull request for review.
 
    Once your PR is merged into the `develop` branch, it will be deployed to [https://dev.webcrafterhub.com](https://dev.webcrafterhub.com) for validation. After successful validation, the `develop` branch will be merged into the `main` branch.
 

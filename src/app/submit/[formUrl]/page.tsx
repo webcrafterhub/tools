@@ -3,13 +3,14 @@ import { FormElementInstance } from "@/components/FormElements";
 import FormSubmitComponent from "@/components/FormSubmitComponent";
 import React from "react";
 
-async function SubmitPage({
-  params,
-}: {
-  params: {
-    formUrl: string;
-  };
-}) {
+async function SubmitPage(
+  props: {
+    params: Promise<{
+      formUrl: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const form = await GetFormContentByUrl(params.formUrl);
 
   if (!form) {

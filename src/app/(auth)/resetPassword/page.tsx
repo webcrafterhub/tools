@@ -53,7 +53,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
     data: "",
   });
   const [timer, setTimer] = useState(3);
-  const intrvl: any = useRef();
+  const intrvl: any = useRef(undefined);
 
   useEffect(() => {
     if (VerificationStatus.type === SUCCESS || VerificationStatus.type === ERROR) {
