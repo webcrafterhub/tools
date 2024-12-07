@@ -22,7 +22,7 @@ const UserVerification: FC<UserVerificationProps> = () => {
     data: "",
   });
   const [timer, setTimer] = useState(3);
-  const intrvl: any = useRef();
+  const intrvl: any = useRef(undefined);
   const router = useRouter();
   const searchParams = useSearchParams();
   const verificationToken = searchParams.get(TOKEN);
