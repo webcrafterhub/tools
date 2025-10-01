@@ -3,12 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/components/hooks/useScroll";
 import ThemeSwitcher from "./ThemeSwitcher";
-import UserButton from "./UserButton";
-import { Session } from "next-auth";
-import LoginModal from "./LoginModal";
 import logo from "@/assets/img/logo.webp";
 
-export default function NavBar({ session }: { session: Session | null }) {
+export default function NavBar() {
   const scrolled = useScroll(50);
 
   return (
@@ -27,8 +24,6 @@ export default function NavBar({ session }: { session: Session | null }) {
           </Link>
           <div className="flex gap-4">
             <ThemeSwitcher />
-
-            {session ? <UserButton session={session} /> : <LoginModal />}
           </div>
         </div>
       </div>

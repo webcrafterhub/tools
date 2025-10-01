@@ -12,7 +12,6 @@ datasource db {
 
 model Form {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String
   createdAt   DateTime @default(now())
   published   Boolean  @default(false)
   name        String
@@ -24,8 +23,6 @@ model Form {
 
   shareURL        String            @unique @default(uuid())
   FormSubmissions FormSubmissions[]
-
-  @@unique([name, userId])
 
   
 }
@@ -39,76 +36,6 @@ model FormSubmissions {
   content String
 }
 
-model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String?
-  email String @unique
-  phoneNumber String?
-  companyName String?
-  password String?
-  emailVerified DateTime?
-  subscriptionEndDate DateTime?
-  image String?
-  accounts Account[]
-  role UserRole @default(USER)
-  subscriptionType SubscriptionPlan @default(BASIC)
-  accountStatus AccountStatus @default(ACTIVE)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String 
-  providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.String
-  session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@unique([provider, providerAccountId])
-}
-
-model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  email      String   @unique
-  token      String
-  expires    DateTime
-}
-model ResetToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  email      String   @unique
-  token      String
-  expires    DateTime
-}
-
-
-enum UserRole {
-  ADMIN
-  USER
-}
-
-enum SubscriptionPlan {
-  BASIC
-  PREMIUM
-
-}
-
-enum AccountStatus {
-  ACTIVE
-  INACTIVE
-  SUSPENDED
-}
 
 
 
