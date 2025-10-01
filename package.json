@@ -7,8 +7,7 @@
     "build": "node src/utils/generateRobotTxt.mjs && next build",
     "start": "next start",
     "lint": "next lint",
-    "lintFix": "next lint --fix",
-    "postinstall": "prisma generate"
+    "lintFix": "next lint --fix"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
