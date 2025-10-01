@@ -10,5 +10,4 @@ module.exports = {
 
     return config;
   },
-  experimental: { missingSuspenseWithCSRBailout: false }, //need to remove this and seee
 };

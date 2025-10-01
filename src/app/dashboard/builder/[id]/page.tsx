@@ -8,11 +8,11 @@ export const dynamic = 'force-dynamic';
 async function BuilderPage({
   params,
 }: {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
   const form = await GetFormById(id);
   if (!form) {
     throw new Error("form not found");

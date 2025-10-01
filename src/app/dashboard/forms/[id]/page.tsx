@@ -19,11 +19,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 async function FormDetailPage({
   params,
 }: {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
   const form = await GetFormById(id);
   if (!form) {
     throw new Error("form not found");
