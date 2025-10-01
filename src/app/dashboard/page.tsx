@@ -1,4 +1,7 @@
 import { GetFormStats, GetForms } from "@/actions/form";
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ReactNode, Suspense } from "react";
