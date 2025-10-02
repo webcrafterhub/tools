@@ -22,25 +22,25 @@ const Tools: FC<ToolsProps> = ({}) => {
           logo={<BsFiletypeJson className="text-5xl" />}
           heading="Json Fromatter"
           subHeading="JSON Formatting, Editing, Conversion, and Prettifying"
-          redirectUrl="/json-formatter"
+          redirectUrl="/tools/json-formatter"
         />
         <ToolBoxButton
           logo={<LuBookLock className="text-5xl" />}
           heading="Base64 Encoder"
           subHeading="Base64 Encoding, URL-safe encoding, source character sets, file upload & download "
-          redirectUrl="/base64-encoder"
+          redirectUrl="/tools/base64-encoder"
         />
         <ToolBoxButton
           logo={<PiFileCloudBold className="text-4xl" />}
           heading="Base64 Decoder"
           subHeading="Base64 Decoding, source character sets, file upload & download "
-          redirectUrl="/base64-decoder"
+          redirectUrl="/tools/base64-decoder"
         />
         <ToolBoxButton
           logo={<Image src={JWTIcon} width={50} height={50} alt="jwt icon" />}
           heading="JWT Decoder"
           subHeading="JWT Decoder, JWT Editor, JWT Verification and JWT Generator"
-          redirectUrl="/jwt-decoder"
+          redirectUrl="/tools/jwt-decoder"
         />
         <ToolBoxButton
           className="bg-gray-100 dark:bg-black opacity-80"
