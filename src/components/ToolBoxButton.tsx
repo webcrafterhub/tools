@@ -1,5 +1,8 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import React, { FC } from "react";
 
@@ -12,9 +15,14 @@ interface ToolBoxButtonProps {
 }
 
 const ToolBoxButton: FC<ToolBoxButtonProps> = ({ logo, heading, subHeading, redirectUrl, className }) => {
+  const pathname = usePathname();
+  // If we're on root path, just use the redirectUrl directly
+  // Otherwise, append to current path
+  const href = pathname === '/' ? redirectUrl : `${pathname}${redirectUrl}`;
+  
   return (
     <Link
-      href={redirectUrl}
+      href={href}
       className={cn("list-none border rounded-lg bg-background relative overflow-hidden md:cursor-pointer", className)}
     >
       <div className="flex h-[180px] flex-col justify-between rounded-md p-6 gap-2">
